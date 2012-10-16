@@ -71,6 +71,21 @@ namespace WinRTTimeZones.Tests
         }
 
         [TestMethod]
+        public void ConvertTimeAcrossYearBoundaryLessUtc()
+        {
+            var dt = new DateTime(2007, 1, 1, 1, 0, 0, DateTimeKind.Utc);
+
+            // -7 hours
+            var local = TimeZoneInfoEx.ConvertTimeBySystemTimeZoneId(dt, "Mountain Standard Time");
+
+            local.Year.Should().Be(2006);
+            local.Month.Should().Be(12);
+            local.Day.Should().Be(31);
+            local.Hour.Should().Be(18);
+            local.Offset.Should().Be(TimeSpan.FromHours(-7));
+        }
+
+        [TestMethod]
         public void ConvertTimeAcrossDateBoundaryGreaterUtc()
         {
             var dt = new DateTime(2007, 3, 15, 23, 0, 0, DateTimeKind.Utc);
@@ -80,6 +95,21 @@ namespace WinRTTimeZones.Tests
 
 
             local.Day.Should().Be(16);
+            local.Hour.Should().Be(8);
+            local.Offset.Should().Be(TimeSpan.FromHours(9));
+        }
+
+        [TestMethod]
+        public void ConvertTimeAcrossYearBoundaryGreaterUtc()
+        {
+            var dt = new DateTime(2006, 12, 31, 23, 0, 0, DateTimeKind.Utc);
+
+            // +9 hours
+            var local = TimeZoneInfoEx.ConvertTimeBySystemTimeZoneId(dt, "Tokyo Standard Time");
+
+            local.Year.Should().Be(2007);
+            local.Day.Should().Be(1);
+            local.Month.Should().Be(1);
             local.Hour.Should().Be(8);
             local.Offset.Should().Be(TimeSpan.FromHours(9));
         }

@@ -104,22 +104,25 @@ namespace TimeZones
         /// <returns></returns>
         public DateTimeOffset ConvertTime(DateTimeOffset dateTimeOffset)
         {
-            var currentTime = new SYSTEMTIME(dateTimeOffset.UtcDateTime);
+            var utcDateTime = new SYSTEMTIME(dateTimeOffset.UtcDateTime);
             
             TIME_ZONE_INFORMATION tzi;
-            if (SafeNativeMethods.GetTimeZoneInformationForYear(currentTime.Year, ref _source, out tzi))
+            if (SafeNativeMethods.GetTimeZoneInformationForYear(utcDateTime.Year, ref _source, out tzi))
             {
-                SYSTEMTIME local;
-                if (SafeNativeMethods.SystemTimeToTzSpecificLocalTime(ref tzi, ref currentTime, out local))
+                SYSTEMTIME destDateTime;
+                if (SafeNativeMethods.SystemTimeToTzSpecificLocalTime(ref tzi, ref utcDateTime, out destDateTime))
                 {
-                    var dt = new DateTime(local.Year, local.Month, local.Day, local.Hour, local.Minute, local.Second, local.Milliseconds,
-                                          DateTimeKind.Unspecified);
+                    var dt = FromSystemTime(destDateTime);
+                    var daylight = IsDaylightTime(dt, ref tzi);
 
-                    // calc offset = local hr/min - current hr/min
-                    var hrs = local.Hour - currentTime.Hour;
-                    var min = local.Minute - currentTime.Minute;
+                    var bias = tzi.Bias + tzi.StandardBias;
 
-                    var dto = new DateTimeOffset(dt, new TimeSpan(hrs, min, 0));
+                    if (daylight)
+                        bias += tzi.DaylightBias;
+
+                    var ts = new TimeSpan(0, -bias, 0);
+
+                    var dto = new DateTimeOffset(dt, ts);
                     return dto;
                 }
             }
@@ -128,6 +131,34 @@ namespace TimeZones
             Marshal.ThrowExceptionForHR(error);
             throw new TimeZoneInfoExException(error, "Win32 error occured");
         }
+
+        private static DateTime FromSystemTime(SYSTEMTIME systemTime, short? yearOverride = null)
+        {
+            return new DateTime(yearOverride ?? systemTime.Year,
+                                systemTime.Month,
+                                systemTime.Day,
+                                systemTime.Hour,
+                                systemTime.Minute,
+                                systemTime.Second,
+                                systemTime.Milliseconds,
+                                DateTimeKind.Unspecified);
+        }
+
+        private static bool IsDaylightTime(DateTime date, ref TIME_ZONE_INFORMATION tzi)
+        {
+            if (tzi.StandardDate.Month == 0 || tzi.DaylightDate.Month == 0) // Not daylight time in the TZ
+                return false;
+
+            // Reuse the DateTime greater/less-than operators and rules
+            var stdDate = FromSystemTime(tzi.StandardDate, (short)date.Year);
+            var dltDate = FromSystemTime(tzi.DaylightDate, (short)date.Year);
+
+            if (date >= dltDate && date < stdDate)
+                return true;
+
+            return false;
+        }
+
 
         /// <summary>
         /// Converts a DateTimeOffset to one in the specified system time zone

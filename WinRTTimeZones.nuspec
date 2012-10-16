@@ -2,8 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>WinRTTimeZones</id>
-        <version>0.5</version>
-        <title>Time Zone Conversion for Windows Runtime (WinRT)</title>
+        <version>0.5.1</version>
+        <title>Time Zone Conversion for Windows Runtime</title>
         <authors>Oren Novotny</authors>
         <owners>onovotny</owners>
         <licenseUrl>https://raw.github.com/onovotny/WinRTTimeZones/master/LICENSE.txt</licenseUrl>

@@ -1,0 +1,275 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TimeZones
+{
+    /// <summary>
+    /// Class to perform time zone conversions
+    /// </summary>
+    public sealed class TimeZoneInfoEx
+    {
+        private static readonly Lazy<List<string>> _timeZones;
+        private static readonly Lazy<IDictionary<string, TimeZoneInfoEx>> _timeZoneData;
+        private DYNAMIC_TIME_ZONE_INFORMATION _source;
+
+        static TimeZoneInfoEx()
+        {
+            _timeZoneData = new Lazy<IDictionary<string, TimeZoneInfoEx>>(FillData);
+            _timeZones = new Lazy<List<string>>(() => new List<string>(_timeZoneData.Value.Keys));
+        }
+
+        private TimeZoneInfoEx(DYNAMIC_TIME_ZONE_INFORMATION source)
+        {
+            _source = source;
+            Name = source.TimeZoneKeyName;
+            StandardName = source.StandardName;
+        }
+
+        /// <summary>
+        ///     All available time zones
+        /// </summary>
+        public static IReadOnlyList<string> SystemTimeZoneIds
+        {
+            get { return _timeZones.Value; }
+        }
+
+        /// <summary>
+        /// Gets a TimeZoneInfo by id.
+        /// </summary>
+        /// <param name="id">Invariant Time Zone name. See TimeZones property for full list.</param>
+        /// <returns></returns>
+        public static TimeZoneInfoEx FindSystemTimeZoneById(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id)) 
+                throw new ArgumentNullException("id");
+
+            TimeZoneInfoEx tz;
+            if (_timeZoneData.Value.TryGetValue(id, out tz))
+            {
+                return tz;
+            }
+
+            throw new TimeZoneInfoExException(-1, "Time Zone is not in the list of TimeZones");
+        }
+
+        /// <summary>
+        ///     Invariant name such as "Eastern Standard Time"
+        /// </summary>
+        public string Name { get; private set; }
+
+        /// <summary>
+        ///     Localized name for the standard time
+        /// </summary>
+        public string StandardName { get; private set; }
+
+        /// <summary>
+        ///     Localized name for the daylight time
+        /// </summary>
+        public string DaylightName { get; private set; }
+
+        private bool Equals(TimeZoneInfoEx other)
+        {
+            return string.Equals(Name, other.Name);
+        }
+
+        /// <summary>
+        ///     Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />.
+        /// </summary>
+        /// <returns> true if the specified object is equal to the current object; otherwise, false. </returns>
+        /// <param name="obj"> The object to compare with the current object. </param>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj is TimeZoneInfoEx && Equals((TimeZoneInfoEx)obj);
+        }
+
+        /// <summary>
+        ///     Serves as a hash function for a particular type.
+        /// </summary>
+        /// <returns> A hash code for the current <see cref="T:System.Object" /> . </returns>
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
+
+        /// <summary>
+        ///  Gets a DateTimeOffset for this time zone
+        /// </summary>
+        /// <param name="dateTimeOffset"></param>
+        /// <returns></returns>
+        public DateTimeOffset ConvertTime(DateTimeOffset dateTimeOffset)
+        {
+            var currentTime = new SYSTEMTIME(dateTimeOffset.UtcDateTime);
+            
+            TIME_ZONE_INFORMATION tzi;
+            if (SafeNativeMethods.GetTimeZoneInformationForYear(currentTime.Year, ref _source, out tzi))
+            {
+                SYSTEMTIME local;
+                if (SafeNativeMethods.SystemTimeToTzSpecificLocalTime(ref tzi, ref currentTime, out local))
+                {
+                    var dt = new DateTime(local.Year, local.Month, local.Day, local.Hour, local.Minute, local.Second, local.Milliseconds,
+                                          DateTimeKind.Unspecified);
+
+                    // calc offset = local hr/min - current hr/min
+                    var hrs = local.Hour - currentTime.Hour;
+                    var min = local.Minute - currentTime.Minute;
+
+                    var dto = new DateTimeOffset(dt, new TimeSpan(hrs, min, 0));
+                    return dto;
+                }
+            }
+
+            var error = Marshal.GetLastWin32Error();
+            Marshal.ThrowExceptionForHR(error);
+            throw new TimeZoneInfoExException(error, "Win32 error occured");
+        }
+
+        /// <summary>
+        /// Converts a DateTimeOffset to one in the specified system time zone
+        /// </summary>
+        /// <param name="dateTimeOffset"></param>
+        /// <param name="destinationTimeZoneId"></param>
+        /// <returns></returns>
+        public static DateTimeOffset ConvertTimeBySystemTimeZoneId(DateTimeOffset dateTimeOffset, string destinationTimeZoneId)
+        {
+            var tz = FindSystemTimeZoneById(destinationTimeZoneId);
+            return tz.ConvertTime(dateTimeOffset);
+        }
+
+        private static IDictionary<string, TimeZoneInfoEx> FillData()
+        {
+            return EnumerateSystemTimeZones().Select(tz => new TimeZoneInfoEx(tz)).ToDictionary(tz => tz.Name);
+        }
+        
+
+        internal static IEnumerable<DYNAMIC_TIME_ZONE_INFORMATION> EnumerateSystemTimeZones()
+        {
+            var i = 0;
+            while (true)
+            {
+                DYNAMIC_TIME_ZONE_INFORMATION tz;
+                var result = SafeNativeMethods.EnumDynamicTimeZoneInformation(i++, out tz);
+
+                if (result != 0)
+                    yield break;
+
+                yield return tz;
+            }
+        }
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        internal struct DYNAMIC_TIME_ZONE_INFORMATION
+        {
+            [MarshalAs(UnmanagedType.I4)]
+            public Int32 Bias;
+
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
+            public string StandardName;
+
+            public SYSTEMTIME StandardDate;
+
+            [MarshalAs(UnmanagedType.I4)]
+            public Int32 StandardBias;
+
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
+            public string DaylightName;
+
+            public SYSTEMTIME DaylightDate;
+
+            [MarshalAs(UnmanagedType.I4)]
+            public Int32 DaylightBias;
+
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+            public string TimeZoneKeyName;
+
+            [MarshalAs(UnmanagedType.I1)]
+            public bool DynamicDaylightTimeDisabled;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct SYSTEMTIME
+        {
+            [MarshalAs(UnmanagedType.U2)]
+            public short Year;
+
+            [MarshalAs(UnmanagedType.U2)]
+            public short Month;
+
+            [MarshalAs(UnmanagedType.U2)]
+            public short DayOfWeek;
+
+            [MarshalAs(UnmanagedType.U2)]
+            public short Day;
+
+            [MarshalAs(UnmanagedType.U2)]
+            public short Hour;
+
+            [MarshalAs(UnmanagedType.U2)]
+            public short Minute;
+
+            [MarshalAs(UnmanagedType.U2)]
+            public short Second;
+
+            [MarshalAs(UnmanagedType.U2)]
+            public short Milliseconds;
+
+            public SYSTEMTIME(DateTime dt)
+            {
+                dt = dt.ToUniversalTime(); // SetSystemTime expects the SYSTEMTIME in UTC
+                Year = (short)dt.Year;
+                Month = (short)dt.Month;
+                DayOfWeek = (short)dt.DayOfWeek;
+                Day = (short)dt.Day;
+                Hour = (short)dt.Hour;
+                Minute = (short)dt.Minute;
+                Second = (short)dt.Second;
+                Milliseconds = (short)dt.Millisecond;
+            }
+        }
+
+        private static class SafeNativeMethods
+        {
+            [DllImport("kernel32.dll")]
+            internal static extern bool SystemTimeToTzSpecificLocalTime([In] ref TIME_ZONE_INFORMATION lpTimeZoneInformation,
+                                                                        [In] ref SYSTEMTIME lpUniversalTime,
+                                                                        out SYSTEMTIME lpLocalTime);
+
+            [DllImport("Advapi32.dll")]
+            internal static extern int EnumDynamicTimeZoneInformation([In] int dwIndex, out DYNAMIC_TIME_ZONE_INFORMATION lpTimeZoneInformation);
+
+
+            [DllImport("kernel32.dll")]
+            internal static extern bool GetTimeZoneInformationForYear([In] short wYear,
+                                                                      [In] ref DYNAMIC_TIME_ZONE_INFORMATION pdtzi,
+                                                                      out TIME_ZONE_INFORMATION ptzi);
+        }
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        internal struct TIME_ZONE_INFORMATION
+        {
+            [MarshalAs(UnmanagedType.I4)]
+            public Int32 Bias;
+
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
+            public string StandardName;
+
+            public SYSTEMTIME StandardDate;
+
+            [MarshalAs(UnmanagedType.I4)]
+            public Int32 StandardBias;
+
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
+            public string DaylightName;
+
+            public SYSTEMTIME DaylightDate;
+
+            [MarshalAs(UnmanagedType.I4)]
+            public Int32 DaylightBias;
+        }
+    }
+}

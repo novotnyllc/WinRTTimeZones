@@ -2,8 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>WinRTTimeZones</id>
-        <version>0.5.1</version>
-        <title>Time Zone Conversion for Windows Runtime</title>
+        <version>0.6.1</version>
+        <title>Time Zone Conversion for Windows Runtime and PCL</title>
         <authors>Oren Novotny</authors>
         <owners>onovotny</owners>
         <licenseUrl>https://raw.github.com/onovotny/WinRTTimeZones/master/LICENSE.txt</licenseUrl>
@@ -12,13 +12,27 @@
         <description>Time Zone library to enable converting to another non-local time zone</description>
         <summary />
         <releaseNotes />
-        <tags>WinRT TimeZone</tags>
+        <tags>WinRT TimeZone PCL</tags>
     </metadata>
     <files>
-        <file src="WinRTTimeZones\bin\Release\TimeZones.pdb" target="lib\netcore45\TimeZones.pdb" />
-        <file src="WinRTTimeZones\bin\Release\TimeZones.pri" target="lib\netcore45\TimeZones.pri" />
-        <file src="WinRTTimeZones\bin\Release\TimeZones.winmd" target="lib\netcore45\TimeZones.winmd" />
-        <file src="WinRTTimeZones\bin\Release\WinRTTimeZones.XML" target="lib\netcore45\WinRTTimeZones.XML" />
+        <file src="TimeZones.NetFx\bin\Release\TimeZones.dll" target="lib\net45\TimeZones.dll" />
+        <file src="TimeZones.NetFx\bin\Release\TimeZones.NetFx.dll" target="lib\net45\TimeZones.NetFx.dll" />
+        <file src="TimeZones.NetFx\bin\Release\TimeZones.NetFx.pdb" target="lib\net45\TimeZones.NetFx.pdb" />
+        <file src="TimeZones.NetFx\bin\Release\TimeZones.pdb" target="lib\net45\TimeZones.pdb" />
+        <file src="TimeZones.NetFx\bin\Release\TimeZones.xml" target="lib\net45\TimeZones.xml" />
+        <file src="TimeZones.NetCore\bin\Release\TimeZones.dll" target="lib\netcore45\TimeZones.dll" />
+        <file src="TimeZones.NetCore\bin\Release\TimeZones.NetCore.dll" target="lib\netcore45\TimeZones.NetCore.dll" />
+        <file src="TimeZones.NetCore\bin\Release\TimeZones.NetCore.pdb" target="lib\netcore45\TimeZones.NetCore.pdb" />
+        <file src="TimeZones.NetCore\bin\Release\TimeZones.NetCore.pri" target="lib\netcore45\TimeZones.NetCore.pri" />
+        <file src="TimeZones.NetCore\bin\Release\TimeZones.pdb" target="lib\netcore45\TimeZones.pdb" />
+        <file src="TimeZones.NetCore\bin\Release\TimeZones.WinRT.pdb" target="lib\netcore45\TimeZones.WinRT.pdb" />
+        <file src="TimeZones.NetCore\bin\Release\TimeZones.WinRT.pri" target="lib\netcore45\TimeZones.WinRT.pri" />
+        <file src="TimeZones.NetCore\bin\Release\TimeZones.WinRT.winmd" target="lib\netcore45\TimeZones.WinRT.winmd" />
+        <file src="TimeZones.NetCore\bin\Release\TimeZones.WinRT.xml" target="lib\netcore45\TimeZones.WinRT.xml" />
+        <file src="TimeZones.NetCore\bin\Release\TimeZones.xml" target="lib\netcore45\TimeZones.xml" />
+        <file src="TimeZones\bin\Release\TimeZones.dll" target="lib\portable-net45+win8\TimeZones.dll" />
+        <file src="TimeZones\bin\Release\TimeZones.pdb" target="lib\portable-net45+win8\TimeZones.pdb" />
+        <file src="TimeZones\bin\Release\TimeZones.xml" target="lib\portable-net45+win8\TimeZones.xml" />
         <file src="**\*.cs" target="src" exclude="_ReSharper.*\**\*.*;packages\**\*.*;**\Debug\**\*.*" />
     </files>
 </package>

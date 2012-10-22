@@ -6,15 +6,15 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4C5D9FB0-5422-4B38-94F4-E8E7737B986B}</ProjectGuid>
+    <ProjectGuid>{210D6F5D-7F42-4059-8F61-9195468D738D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WinRTTimeZones.Tests</RootNamespace>
-    <AssemblyName>WinRTTimeZones.Tests</AssemblyName>
+    <RootNamespace>TimeZones.WinRTPcl.Tests</RootNamespace>
+    <AssemblyName>TimeZones.WinRTPcl.Tests</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>WinRTTimeZones.Tests_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>TimeZones.WinRTPcl.Tests_TemporaryKey.pfx</PackageCertificateKeyFile>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -119,7 +119,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="packages.config" />
-    <None Include="WinRTTimeZones.Tests_TemporaryKey.pfx" />
+    <None Include="TimeZones.WinRTPcl.Tests_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\UnitTestLogo.png">
@@ -136,9 +136,17 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WinRTTimeZones\WinRTTimeZones.csproj">
+    <ProjectReference Include="..\TimeZones.NetCore\TimeZones.NetCore.csproj">
+      <Project>{5ec417f5-fb26-4f6d-978f-4af79ef268af}</Project>
+      <Name>TimeZones.NetCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeZones.WinRT\TimeZones.WinRT.csproj">
       <Project>{2b1d6f9f-33db-4450-81f4-9bd19efecf90}</Project>
-      <Name>WinRTTimeZones</Name>
+      <Name>TimeZones.WinRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeZones\TimeZones.csproj">
+      <Project>{76ba4996-a03a-481b-8871-caee1d268a42}</Project>
+      <Name>TimeZones</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

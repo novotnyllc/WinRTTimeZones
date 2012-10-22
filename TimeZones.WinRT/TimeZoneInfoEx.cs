@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TimeZones
+namespace TimeZones.WinRT
 {
     /// <summary>
     /// Class to perform time zone conversions
@@ -124,6 +124,33 @@ namespace TimeZones
 
                     var dto = new DateTimeOffset(dt, ts);
                     return dto;
+                }
+            }
+
+            var error = Marshal.GetLastWin32Error();
+            Marshal.ThrowExceptionForHR(error);
+            throw new TimeZoneInfoExException(error, "Win32 error occured");
+        }
+
+        /// <summary>
+        /// Determines if the current datetime value is in daylight time or not
+        /// </summary>
+        /// <param name="dateTimeOffset"></param>
+        /// <returns></returns>
+        public bool IsDaylightSavingTime(DateTimeOffset dateTimeOffset)
+        {
+            var utcDateTime = new SYSTEMTIME(dateTimeOffset.UtcDateTime);
+
+            TIME_ZONE_INFORMATION tzi;
+            if (SafeNativeMethods.GetTimeZoneInformationForYear(utcDateTime.Year, ref _source, out tzi))
+            {
+                SYSTEMTIME destDateTime;
+                if (SafeNativeMethods.SystemTimeToTzSpecificLocalTime(ref tzi, ref utcDateTime, out destDateTime))
+                {
+                    var dt = FromSystemTime(destDateTime);
+                    var daylight = IsDaylightTime(dt, ref tzi);
+
+                    return daylight;
                 }
             }
 

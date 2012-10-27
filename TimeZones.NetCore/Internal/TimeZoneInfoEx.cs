@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TimeZones.WinRT
+namespace TimeZones.Internal
 {
     /// <summary>
-    /// Class to perform time zone conversions
+    ///     Class to perform time zone conversions
     /// </summary>
-    public sealed class TimeZoneInfoEx
+    internal sealed class TimeZoneInfoEx
     {
         private static readonly Lazy<List<string>> _timeZones;
         private static readonly Lazy<IDictionary<string, TimeZoneInfoEx>> _timeZoneData;
@@ -27,6 +27,9 @@ namespace TimeZones.WinRT
             _source = source;
             Name = source.TimeZoneKeyName;
             StandardName = source.StandardName;
+            DaylightName = source.DaylightName;
+
+            BaseUtcOffset = new TimeSpan(0, -(source.Bias + source.StandardBias), 0);
         }
 
         /// <summary>
@@ -35,25 +38,6 @@ namespace TimeZones.WinRT
         public static IReadOnlyList<string> SystemTimeZoneIds
         {
             get { return _timeZones.Value; }
-        }
-
-        /// <summary>
-        /// Gets a TimeZoneInfo by id.
-        /// </summary>
-        /// <param name="id">Invariant Time Zone name. See TimeZones property for full list.</param>
-        /// <returns></returns>
-        public static TimeZoneInfoEx FindSystemTimeZoneById(string id)
-        {
-            if (string.IsNullOrWhiteSpace(id)) 
-                throw new ArgumentNullException("id");
-
-            TimeZoneInfoEx tz;
-            if (_timeZoneData.Value.TryGetValue(id, out tz))
-            {
-                return tz;
-            }
-
-            throw new TimeZoneInfoExException(-1, "Time Zone is not in the list of TimeZones");
         }
 
         /// <summary>
@@ -70,6 +54,28 @@ namespace TimeZones.WinRT
         ///     Localized name for the daylight time
         /// </summary>
         public string DaylightName { get; private set; }
+
+        public TimeSpan BaseUtcOffset { get; private set; }
+        
+
+        /// <summary>
+        ///     Gets a TimeZoneInfo by id.
+        /// </summary>
+        /// <param name="id">Invariant Time Zone name. See TimeZones property for full list.</param>
+        /// <returns></returns>
+        public static TimeZoneInfoEx FindSystemTimeZoneById(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                throw new ArgumentNullException("id");
+
+            TimeZoneInfoEx tz;
+            if (_timeZoneData.Value.TryGetValue(id, out tz))
+            {
+                return tz;
+            }
+
+            throw new TimeZoneInfoExException(-1, "Time Zone is not in the list of TimeZones");
+        }
 
         private bool Equals(TimeZoneInfoEx other)
         {
@@ -91,21 +97,23 @@ namespace TimeZones.WinRT
         /// <summary>
         ///     Serves as a hash function for a particular type.
         /// </summary>
-        /// <returns> A hash code for the current <see cref="T:System.Object" /> . </returns>
+        /// <returns>
+        ///     A hash code for the current <see cref="T:System.Object" /> .
+        /// </returns>
         public override int GetHashCode()
         {
             return Name.GetHashCode();
         }
 
         /// <summary>
-        ///  Gets a DateTimeOffset for this time zone
+        ///     Gets a DateTimeOffset for this time zone
         /// </summary>
         /// <param name="dateTimeOffset"></param>
         /// <returns></returns>
         public DateTimeOffset ConvertTime(DateTimeOffset dateTimeOffset)
         {
             var utcDateTime = new SYSTEMTIME(dateTimeOffset.UtcDateTime);
-            
+
             TIME_ZONE_INFORMATION tzi;
             if (SafeNativeMethods.GetTimeZoneInformationForYear(utcDateTime.Year, ref _source, out tzi))
             {
@@ -133,7 +141,7 @@ namespace TimeZones.WinRT
         }
 
         /// <summary>
-        /// Determines if the current datetime value is in daylight time or not
+        ///     Determines if the current datetime value is in daylight time or not
         /// </summary>
         /// <param name="dateTimeOffset"></param>
         /// <returns></returns>
@@ -188,7 +196,7 @@ namespace TimeZones.WinRT
 
 
         /// <summary>
-        /// Converts a DateTimeOffset to one in the specified system time zone
+        ///     Converts a DateTimeOffset to one in the specified system time zone
         /// </summary>
         /// <param name="dateTimeOffset"></param>
         /// <param name="destinationTimeZoneId"></param>
@@ -203,7 +211,7 @@ namespace TimeZones.WinRT
         {
             return EnumerateSystemTimeZones().Select(tz => new TimeZoneInfoEx(tz)).ToDictionary(tz => tz.Name);
         }
-        
+
 
         internal static IEnumerable<DYNAMIC_TIME_ZONE_INFORMATION> EnumerateSystemTimeZones()
         {

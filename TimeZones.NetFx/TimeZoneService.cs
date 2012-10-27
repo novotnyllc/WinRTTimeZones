@@ -50,7 +50,13 @@ namespace TimeZones
                 return TimeZoneInfo.ConvertTime(dateTimeOffset, _info);
             }
 
+            public TimeSpan BaseUtcOffset {
+                get { return _info.BaseUtcOffset; }
+            }
             public string StandardName { get { return _info.StandardName; } }
+            public bool SupportsDaylightSavingTime {
+                get { return _info.SupportsDaylightSavingTime; }
+            }
 
             public string DaylightName
             {

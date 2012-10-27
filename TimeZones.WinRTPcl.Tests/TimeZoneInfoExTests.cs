@@ -31,6 +31,13 @@ namespace WinRTTimeZones.Tests
         }
 
         [TestMethod]
+        public void BaseUtcOffsetShouldBeCorrect()
+        {
+            var tz = TimeZoneService.FindSystemTimeZoneById("Central Standard Time");
+            tz.BaseUtcOffset.Should().Be(TimeSpan.FromHours(-6));
+        }
+
+        [TestMethod]
         public void ConvertTimeToCentralDaylightTest()
         {
             var dt = new DateTime(1990, 7, 1, 12, 0, 0, DateTimeKind.Utc);

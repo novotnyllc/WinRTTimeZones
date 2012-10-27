@@ -100,10 +100,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\TimeZones.WinRT\TimeZones.WinRT.csproj">
-      <Project>{2b1d6f9f-33db-4450-81f4-9bd19efecf90}</Project>
-      <Name>TimeZones.WinRT</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TimeZones\TimeZones.csproj">
       <Project>{76ba4996-a03a-481b-8871-caee1d268a42}</Project>
       <Name>TimeZones</Name>
@@ -111,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Internal\TimeZoneInfoEx.cs" />
     <Compile Include="TimeZoneService.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

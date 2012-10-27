@@ -111,7 +111,7 @@
     <SDKReference Include="TestPlatform, Version=11.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TimeZoneInfoExTests.cs" />
+    <Compile Include="TimeZoneServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +136,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TimeZones.NetCore\TimeZones.NetCore.csproj">
+      <Project>{5ec417f5-fb26-4f6d-978f-4af79ef268af}</Project>
+      <Name>TimeZones.NetCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TimeZones.WinRT\TimeZones.WinRT.csproj">
       <Project>{2b1d6f9f-33db-4450-81f4-9bd19efecf90}</Project>
       <Name>TimeZones.WinRT</Name>

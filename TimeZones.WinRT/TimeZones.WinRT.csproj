@@ -101,11 +101,14 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="TimeZoneInfoEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimeZoneNotFoundException.cs" />
+    <Compile Include="TimeZoneService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TimeZones.NetCore\TimeZones.NetCore.csproj">
+      <Project>{5ec417f5-fb26-4f6d-978f-4af79ef268af}</Project>
+      <Name>TimeZones.NetCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TimeZones\TimeZones.csproj">
       <Project>{76ba4996-a03a-481b-8871-caee1d268a42}</Project>
       <Name>TimeZones</Name>

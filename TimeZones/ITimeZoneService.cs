@@ -52,13 +52,18 @@ namespace TimeZones
         DateTimeOffset ConvertTime(DateTimeOffset dateTimeOffset);
 
         /// <summary>
+        /// Normal offset from UTC
+        /// </summary>
+        TimeSpan BaseUtcOffset { get; }
+        
+        /// <summary>
         /// Localized name for standard time
         /// </summary>
         string StandardName
         {
             get;
         }
-
+        
         /// <summary>
         /// Localized name for daylight time
         /// </summary>

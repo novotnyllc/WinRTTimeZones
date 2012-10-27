@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TimeZones.WinRT;
+using TimeZones.Internal;
 
 namespace TimeZones
 {
@@ -46,8 +46,13 @@ namespace TimeZones
                 return _info.ConvertTime(dateTimeOffset);
             }
 
+            public TimeSpan BaseUtcOffset
+            {
+                get { return _info.BaseUtcOffset; }
+            }
+          
             public string StandardName { get { return _info.StandardName; }}
-
+   
             public string DaylightName
             {
                 get { return _info.DaylightName; }

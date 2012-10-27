@@ -9,9 +9,14 @@ namespace TimeZones
     /// <summary>
     /// Exception thrown from Time Zone
     /// </summary>
-    internal sealed class TimeZoneInfoExException : Exception
+    public sealed class TimeZoneInfoExException : Exception
     {
-        internal TimeZoneInfoExException(int code, string message) : base(message)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="message"></param>
+        public TimeZoneInfoExException(int code, string message) : base(message)
         {
             if (code >= 0)
                 throw new ArgumentOutOfRangeException("code");

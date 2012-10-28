@@ -1,5 +1,7 @@
 [Oo]bj
 [Bb]in
+Debug
+Release
 *.user
 *.suo
 *.[Cc]ache
@@ -13,5 +15,8 @@ _ReSharper.*
 Ankh.NoLoad
 *.mdb
 *.nupkg
+*.sdf
+*.opensdf
 /TestResults
 /packages
+/ipch

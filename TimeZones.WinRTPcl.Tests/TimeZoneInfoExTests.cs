@@ -38,6 +38,56 @@ namespace WinRTTimeZones.Tests
         }
 
         [TestMethod]
+        public void SpecifyTimeZoneStandardUnspecifiedTest()
+        {
+            var dt = new DateTime(1990, 7, 1, 12, 0, 0, DateTimeKind.Unspecified); // just a test 
+            var tz = TimeZoneService.FindSystemTimeZoneById("Central Standard Time");
+
+            var result = TimeZoneService.SpecifyTimeZone(dt, tz);
+
+            result.Hour.Should().Be(12); // same
+            result.Offset.Should().Be(TimeSpan.FromHours(-5));
+        }
+
+        [TestMethod]
+        public void SpecifyTimeZoneStandardUtcTest()
+        {
+            var dt = new DateTime(1990, 7, 1, 12, 0, 0, DateTimeKind.Utc); // just a test 
+            var tz = TimeZoneService.FindSystemTimeZoneById("Central Standard Time");
+
+            var result = TimeZoneService.SpecifyTimeZone(dt, tz);
+
+            result.Hour.Should().Be(12); // same
+            result.Offset.Should().Be(TimeSpan.FromHours(-5));
+        }
+
+
+        [TestMethod]
+        public void SpecifyTimeZoneStandardTest()
+        {
+            var dt = new DateTime(1990, 7, 1, 12, 0, 0, DateTimeKind.Local); // just a test 
+            var tz = TimeZoneService.FindSystemTimeZoneById("Central Standard Time");
+
+            var result = TimeZoneService.SpecifyTimeZone(dt, tz);
+
+            result.Hour.Should().Be(12); // same
+            result.Offset.Should().Be(TimeSpan.FromHours(-5));
+        }
+
+        [TestMethod]
+        public void SpecifyTimeZoneDaylightTest()
+        {
+            var dt = new DateTime(1990, 2, 1, 12, 0, 0, DateTimeKind.Local); // just a test 
+            var tz = TimeZoneService.FindSystemTimeZoneById("Central Standard Time");
+
+            var result = TimeZoneService.SpecifyTimeZone(dt, tz);
+
+            result.Hour.Should().Be(12); // same
+            result.Offset.Should().Be(TimeSpan.FromHours(-6));
+        }
+
+
+        [TestMethod]
         public void ConvertTimeToCentralDaylightTest()
         {
             var dt = new DateTime(1990, 7, 1, 12, 0, 0, DateTimeKind.Utc);

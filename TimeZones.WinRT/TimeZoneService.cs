@@ -41,7 +41,31 @@ namespace TimeZones.WinRT
         /// <returns></returns>
         public static DateTimeOffset ConvertTimeBySystemTimeZoneId(DateTimeOffset dateTimeOffset, string destinationTimeZoneId)
         {
-            return _service.ConvertTimeBySystemTimeZoneId(dateTimeOffset, destinationTimeZoneId);
+            if (string.IsNullOrWhiteSpace(destinationTimeZoneId))
+                throw new ArgumentNullException();
+
+            var tz = _service.FindSystemTimeZoneById(destinationTimeZoneId);
+            return tz.ConvertTime(dateTimeOffset);
+        }
+
+        /// <summary>
+        /// Sets the specified timezone on the date without converting the time
+        /// </summary>
+        /// <param name="dateTimeOffset"></param>
+        /// <param name="timeZone"></param>
+        /// <returns></returns>
+        public static DateTimeOffset SpecifyTimeZone(DateTimeOffset dateTimeOffset, ITimeZoneEx timeZone)
+        {
+            if (timeZone == null)
+                throw new ArgumentNullException("timeZone");
+
+            // Treat the date as UTC
+            var dateAsUtc = DateTime.SpecifyKind(dateTimeOffset.DateTime, DateTimeKind.Utc);
+
+            // This is to find the correct offset
+            var asLocal = timeZone.ConvertTime(dateAsUtc);
+
+            return new DateTimeOffset(DateTime.SpecifyKind(dateAsUtc, DateTimeKind.Unspecified), asLocal.Offset);
         }
 
         private class TimeZoneEx : ITimeZoneEx

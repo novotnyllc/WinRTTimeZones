@@ -21,11 +21,6 @@ namespace TimeZones
             return new TimeZoneEx(TimeZoneInfoEx.FindSystemTimeZoneById(id));
         }
 
-        public DateTimeOffset ConvertTimeBySystemTimeZoneId(DateTimeOffset dateTimeOffset, string destinationTimeZoneId)
-        {
-            return TimeZoneInfoEx.ConvertTimeBySystemTimeZoneId(dateTimeOffset, destinationTimeZoneId);
-        }
-
         private class TimeZoneEx : ITimeZoneEx
         {
             private readonly TimeZoneInfoEx _info;

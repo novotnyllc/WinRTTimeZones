@@ -22,14 +22,6 @@ namespace TimeZones
         /// <param name="id">Invariant Time Zone name. See TimeZones property for full list.</param>
         /// <returns></returns>
         ITimeZoneEx FindSystemTimeZoneById(string id);
-
-        /// <summary>
-        /// Converts a DateTimeOffset to one in the specified system time zone
-        /// </summary>
-        /// <param name="dateTimeOffset"></param>
-        /// <param name="destinationTimeZoneId"></param>
-        /// <returns></returns>
-        DateTimeOffset ConvertTimeBySystemTimeZoneId(DateTimeOffset dateTimeOffset, string destinationTimeZoneId);
     }
 
     /// <summary>

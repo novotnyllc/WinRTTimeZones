@@ -24,12 +24,7 @@ namespace TimeZones
         {
             return new TimeZoneEx(TimeZoneInfo.FindSystemTimeZoneById(id));
         }
-
-        public DateTimeOffset ConvertTimeBySystemTimeZoneId(DateTimeOffset dateTimeOffset, string destinationTimeZoneId)
-        {
-            return TimeZoneInfo.ConvertTimeBySystemTimeZoneId(dateTimeOffset, destinationTimeZoneId);
-        }
-
+        
         private class TimeZoneEx : ITimeZoneEx
         {
             private readonly TimeZoneInfo _info;
@@ -54,9 +49,6 @@ namespace TimeZones
                 get { return _info.BaseUtcOffset; }
             }
             public string StandardName { get { return _info.StandardName; } }
-            public bool SupportsDaylightSavingTime {
-                get { return _info.SupportsDaylightSavingTime; }
-            }
 
             public string DaylightName
             {

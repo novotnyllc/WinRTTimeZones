@@ -18,13 +18,12 @@ namespace TimeZones
         }
         public ITimeZoneEx FindSystemTimeZoneById(string id)
         {
+            if (string.IsNullOrWhiteSpace(id))
+                throw new ArgumentNullException("id");
+
             return new TimeZoneEx(TimeZoneInfoEx.FindSystemTimeZoneById(id));
         }
 
-        public DateTimeOffset ConvertTimeBySystemTimeZoneId(DateTimeOffset dateTimeOffset, string destinationTimeZoneId)
-        {
-            return TimeZoneInfoEx.ConvertTimeBySystemTimeZoneId(dateTimeOffset, destinationTimeZoneId);
-        }
 
         private class TimeZoneEx : ITimeZoneEx
         {

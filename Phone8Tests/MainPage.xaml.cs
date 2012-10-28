@@ -13,6 +13,7 @@ using Microsoft.Phone.Shell;
 using Phone8Tests.Resources;
 using TimeZones;
 using TimeZones.Internal;
+using TimeZones_WP8_Native;
 
 namespace Phone8Tests
 {
@@ -49,15 +50,32 @@ namespace Phone8Tests
         {
             var dt = new DateTime(2006, 3, 15, 12, 0, 0, DateTimeKind.Utc);
 
-           //  -7 hours
-           var local = TimeZoneService.ConvertTimeBySystemTimeZoneId(dt, "Mountain Standard Time");
+        //   //  -7 hours
+        //   var local = TimeZoneService.ConvertTimeBySystemTimeZoneId(dt, "Mountain Standard Time");
 
-            var tz = TimeZoneService.FindSystemTimeZoneById("Mountain Standard Time");
-        //    Debug.WriteLine(local);
+        //    var tz = TimeZoneService.FindSystemTimeZoneById("Mountain Standard Time");
+        ////    Debug.WriteLine(local);
+        // 
+        
 
-            Debug.WriteLine(tz);
+         //   Debug.WriteLine(tz);
             //local.Hour.Should().Be(5);
             //local.Offset.Should().Be(TimeSpan.FromHours(-7));
+
+
+            var map = TimeZoneInfoEx.CreateMap();
+
+            var tz = map["Mountain Standard Time"];
+
+
+            TimeSpan offset;
+            var dto = tz.ConvertTime(dt, out offset);
+
+            var c = DateTime.SpecifyKind(dt.Add(offset), DateTimeKind.Unspecified);
+            
+            var converted = new DateTimeOffset(c, offset);
+
+            Debug.WriteLine(tz.BaseUtcOffset);
         }
     }
 }

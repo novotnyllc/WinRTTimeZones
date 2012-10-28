@@ -148,9 +148,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TimeZones.WP8.Native\TimeZones.WP8.Native.vcxproj">
-      <Project>{B7FAA254-8228-4C24-B5EA-C1A611524037}</Project>
-      <Name>TimeZones.WP8.Native</Name>
+    <ProjectReference Include="..\TimeZones.WP8\TimeZones.WP8.csproj">
+      <Project>{E7346BB7-4241-439E-A718-A6C6AE2369C2}</Project>
+      <Name>TimeZones.WP8</Name>
     </ProjectReference>
     <ProjectReference Include="..\TimeZones\TimeZones.csproj">
       <Project>{76BA4996-A03A-481B-8871-CAEE1D268A42}</Project>

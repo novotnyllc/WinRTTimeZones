@@ -4,7 +4,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using TimeZones_WP8_Native;
+
+using TZI = TimeZones_WP8_Native.TimeZoneInfoEx;
 
 namespace TimeZones.Internal
 {
@@ -15,7 +16,7 @@ namespace TimeZones.Internal
     {
         private static readonly Lazy<List<string>> _timeZones;
         private static readonly Lazy<IDictionary<string, TimeZoneInfoEx>> _timeZoneData;
-        private DYNAMIC_TIME_ZONE_INFORMATION_WRAPPED _source;
+        private readonly TZI _source;
 
         static TimeZoneInfoEx()
         {
@@ -23,14 +24,13 @@ namespace TimeZones.Internal
             _timeZones = new Lazy<List<string>>(() => new List<string>(_timeZoneData.Value.Keys));
         }
 
-        private TimeZoneInfoEx(DYNAMIC_TIME_ZONE_INFORMATION_WRAPPED source)
+        private TimeZoneInfoEx(TZI source)
         {
             _source = source;
-            Name = source.TimeZoneKeyName;
+            Name = source.Name;
             StandardName = source.StandardName;
             DaylightName = source.DaylightName;
-
-            BaseUtcOffset = new TimeSpan(0, -(source.Bias + source.StandardBias), 0);
+            BaseUtcOffset = source.BaseUtcOffset;
         }
 
         /// <summary>
@@ -113,105 +113,16 @@ namespace TimeZones.Internal
         /// <returns></returns>
         public DateTimeOffset ConvertTime(DateTimeOffset dateTimeOffset)
         {
-            var utcDateTime = FromDateTime(dateTimeOffset.UtcDateTime);
+            TimeSpan offset;
+            var dto = _source.ConvertTime(dateTimeOffset, out offset);
 
-            //TIME_ZONE_INFORMATION_WRAPPED tzi;
-            var tzi = TimeZoneInfoMethods.GetTimeZoneInformationForYearWrapped(utcDateTime.Year, _source);
-            
-                //SYSTEMTIME_WRAPPED destDateTime;
-            var destDateTime = TimeZoneInfoMethods.SystemTimeToTzSpecificLocalTimeWrapped(tzi, utcDateTime);
-            
-                
-                    var dt = FromSystemTime(destDateTime);
-                    var daylight = IsDaylightTime(dt, ref tzi);
+            var c = DateTime.SpecifyKind(dateTimeOffset.UtcDateTime.Add(offset), DateTimeKind.Unspecified);
 
-                    var bias = tzi.Bias + tzi.StandardBias;
+            var converted = new DateTimeOffset(c, offset);
 
-                    if (daylight)
-                        bias += tzi.DaylightBias;
-
-                    var ts = new TimeSpan(0, -bias, 0);
-
-                    var dto = new DateTimeOffset(dt, ts);
-                    return dto;
-                
-            
-
-            //var error = Marshal.GetLastWin32Error();
-            //Marshal.ThrowExceptionForHR(error);
-            //throw new TimeZoneInfoExException(error, "Win32 error occured");
+            return converted;
         }
 
-        private static SYSTEMTIME_WRAPPED FromDateTime(DateTime dateTime)
-        {
-            var st = new SYSTEMTIME_WRAPPED
-                {
-                    Year = (short)dateTime.Year,
-                    Month = (short)dateTime.Month,
-                    DayOfWeek = (short)dateTime.DayOfWeek,
-                    Day = (short)dateTime.Day,
-                    Hour = (short)dateTime.Hour,
-                    Minute = (short)dateTime.Minute,
-                    Second = (short)dateTime.Second,
-                    Milliseconds = (short)dateTime.Millisecond
-                };
-
-            return st;
-        }
-
-        /// <summary>
-        ///     Determines if the current datetime value is in daylight time or not
-        /// </summary>
-        /// <param name="dateTimeOffset"></param>
-        /// <returns></returns>
-        public bool IsDaylightSavingTime(DateTimeOffset dateTimeOffset)
-        {
-            var utcDateTime = FromDateTime(dateTimeOffset.UtcDateTime);
-
-            //TIME_ZONE_INFORMATION_WRAPPED tzi;
-            var tzi = TimeZoneInfoMethods.GetTimeZoneInformationForYearWrapped(utcDateTime.Year, _source);
-            
-                //SYSTEMTIME_WRAPPED destDateTime;
-            var destDateTime = TimeZoneInfoMethods.SystemTimeToTzSpecificLocalTimeWrapped(tzi, utcDateTime);
-              
-                    var dt = FromSystemTime(destDateTime);
-                    var daylight = IsDaylightTime(dt, ref tzi);
-
-                    return daylight;
-               
-            
-
-            var error = Marshal.GetLastWin32Error();
-            Marshal.ThrowExceptionForHR(error);
-            throw new TimeZoneInfoExException(error, "Win32 error occured");
-        }
-
-        private static DateTime FromSystemTime(SYSTEMTIME_WRAPPED systemTime, short? yearOverride = null)
-        {
-            return new DateTime(yearOverride ?? systemTime.Year,
-                                systemTime.Month,
-                                systemTime.Day,
-                                systemTime.Hour,
-                                systemTime.Minute,
-                                systemTime.Second,
-                                systemTime.Milliseconds,
-                                DateTimeKind.Unspecified);
-        }
-
-        private static bool IsDaylightTime(DateTime date, ref TIME_ZONE_INFORMATION_WRAPPED tzi)
-        {
-            if (tzi.StandardDate.Month == 0 || tzi.DaylightDate.Month == 0) // Not daylight time in the TZ
-                return false;
-
-            // Reuse the DateTime greater/less-than operators and rules
-            var stdDate = FromSystemTime(tzi.StandardDate, (short)date.Year);
-            var dltDate = FromSystemTime(tzi.DaylightDate, (short)date.Year);
-
-            if (date >= dltDate && date < stdDate)
-                return true;
-
-            return false;
-        }
 
 
         /// <summary>
@@ -228,24 +139,13 @@ namespace TimeZones.Internal
 
         private static IDictionary<string, TimeZoneInfoEx> FillData()
         {
-            return EnumerateSystemTimeZones().Select(tz => new TimeZoneInfoEx(tz)).ToDictionary(tz => tz.Name);
+            return TZI.CreateMap().Values.Select(tz => new TimeZoneInfoEx(tz)).ToDictionary(tz => tz.Name);
         }
 
 
-        internal static IEnumerable<DYNAMIC_TIME_ZONE_INFORMATION_WRAPPED> EnumerateSystemTimeZones()
+        public bool IsDaylightSavingTime(DateTimeOffset dateTimeOffset)
         {
-            var i = 0;
-            while (true)
-            {
-                DYNAMIC_TIME_ZONE_INFORMATION_WRAPPED tz;
-                var result = TimeZoneInfoMethods.EnumDynamicTimeZoneInformationWrapped(i++);
-
-                if (result.count != 0)
-                    yield break;
-
-                yield return result.TZ;
-            }
+            return _source.IsDaylightSavingTime(dateTimeOffset);
         }
-        
     }
 }

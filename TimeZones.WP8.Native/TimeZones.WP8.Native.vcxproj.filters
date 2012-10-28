@@ -13,6 +13,5 @@
   <ItemGroup>
     <ClInclude Include="TimeZones.WP8.Native.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Structs.h" />
   </ItemGroup>
 </Project>

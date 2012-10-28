@@ -116,9 +116,9 @@ namespace TimeZones.Internal
             TimeSpan offset;
             var dto = _source.ConvertTime(dateTimeOffset, out offset);
 
-            var c = DateTime.SpecifyKind(dateTimeOffset.UtcDateTime.Add(offset), DateTimeKind.Unspecified);
-
-            var converted = new DateTimeOffset(c, offset);
+            // The UtcDateTime here isn't really UTC -- it's the converted local time
+            var dt = DateTime.SpecifyKind(dto.UtcDateTime, DateTimeKind.Unspecified);
+            var converted = new DateTimeOffset(dt, offset);
 
             return converted;
         }

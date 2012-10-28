@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-using TZI = TimeZones_WP8_Native.TimeZoneInfoEx;
+using TZI = TimeZones.WP8.Native.TimeZoneInfoEx;
 
 namespace TimeZones.Internal
 {

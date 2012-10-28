@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{b7faa254-8228-4c24-b5ea-c1a611524037}</ProjectGuid>
-    <RootNamespace>TimeZones_WP8_Native</RootNamespace>
+    <RootNamespace>TimeZones.WP8.Native</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <WinMDAssembly>true</WinMDAssembly>

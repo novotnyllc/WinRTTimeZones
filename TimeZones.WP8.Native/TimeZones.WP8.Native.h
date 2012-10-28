@@ -9,8 +9,13 @@ using namespace Windows::Foundation::Collections;
 using namespace Windows::Foundation;
 using namespace Platform::Collections;
 
-namespace TimeZones_WP8_Native
+namespace TimeZones
 {
+namespace WP8
+{
+namespace Native
+{
+
     public ref class TimeZoneInfoEx sealed
     {
 	private:
@@ -85,4 +90,6 @@ namespace TimeZones_WP8_Native
 		}
 				
     };
+}
+}
 }

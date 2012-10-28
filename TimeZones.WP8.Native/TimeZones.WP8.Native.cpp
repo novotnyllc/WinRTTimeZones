@@ -8,7 +8,11 @@ using namespace Windows::Foundation::Collections;
 using namespace Platform::Collections;
 
 
-namespace TimeZones_WP8_Native
+namespace TimeZones
+{
+namespace WP8
+{
+namespace Native
 {
 
 TimeZoneInfoEx::TimeZoneInfoEx(DYNAMIC_TIME_ZONE_INFORMATION tz) : _source(tz)
@@ -122,4 +126,6 @@ bool TimeZoneInfoEx::IsDaylightTime(const SYSTEMTIME* date, const TIME_ZONE_INFO
 //	return _timeZoneData->Lookup(id);
 //}
 
+}
+}
 }

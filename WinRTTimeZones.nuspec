@@ -2,17 +2,19 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>WinRTTimeZones</id>
-        <version>0.6.2</version>
+        <version>0.7.0</version>
         <title>Time Zone Conversion for Windows Runtime and PCL</title>
         <authors>Oren Novotny</authors>
         <owners>onovotny</owners>
         <licenseUrl>https://raw.github.com/onovotny/WinRTTimeZones/master/LICENSE.txt</licenseUrl>
         <projectUrl>https://github.com/onovotny/WinRTTimeZones</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Time Zone library to enable converting to another non-local time zone</description>
+        <description>Time Zone library to enable converting to another non-local time zone
+
+Supported Platforms: WinRT, WinStore, WP8, .NET4.5</description>
         <summary />
         <releaseNotes />
-        <tags>WinRT TimeZone PCL</tags>
+        <tags>WinRT TimeZone PCL WP8</tags>
     </metadata>
     <files>
         <file src="TimeZones.NetFx\bin\Release\TimeZones.dll" target="lib\net45\TimeZones.dll" />
@@ -26,9 +28,9 @@
         <file src="TimeZones.NetCore\bin\Release\TimeZones.NetCore.pri" target="lib\netcore45\TimeZones.NetCore.pri" />
         <file src="TimeZones.NetCore\bin\Release\TimeZones.pdb" target="lib\netcore45\TimeZones.pdb" />
         <file src="TimeZones.NetCore\bin\Release\TimeZones.xml" target="lib\netcore45\TimeZones.xml" />
-        <file src="TimeZones\bin\Release\TimeZones.dll" target="lib\portable-net45+win8\TimeZones.dll" />
-        <file src="TimeZones\bin\Release\TimeZones.pdb" target="lib\portable-net45+win8\TimeZones.pdb" />
-        <file src="TimeZones\bin\Release\TimeZones.xml" target="lib\portable-net45+win8\TimeZones.xml" />
+        <file src="TimeZones\bin\Release\TimeZones.dll" target="lib\portable-net45+wp8+win8\TimeZones.dll" />
+        <file src="TimeZones\bin\Release\TimeZones.xml" target="lib\portable-net45+wp8+win8\TimeZones.xml" />
+        <file src="TimeZones\bin\Release\TimeZones.pdb" target="lib\portable-net45+wp8+win8\TimeZones.pdb" />
         <file src="TimeZones.WinRT\bin\Release\TimeZones.dll" target="lib\Windows8\TimeZones.dll" />
         <file src="TimeZones.WinRT\bin\Release\TimeZones.NetCore.dll" target="lib\Windows8\TimeZones.NetCore.dll" />
         <file src="TimeZones.WinRT\bin\Release\TimeZones.NetCore.pdb" target="lib\Windows8\TimeZones.NetCore.pdb" />
@@ -39,6 +41,13 @@
         <file src="TimeZones.WinRT\bin\Release\TimeZones.WinRT.winmd" target="lib\Windows8\TimeZones.WinRT.winmd" />
         <file src="TimeZones.WinRT\bin\Release\TimeZones.WinRT.xml" target="lib\Windows8\TimeZones.WinRT.xml" />
         <file src="TimeZones.WinRT\bin\Release\TimeZones.xml" target="lib\Windows8\TimeZones.xml" />
-        <file src="**\*.cs" target="src" exclude="_ReSharper.*\**\*.*;packages\**\*.*;**\Debug\**\*.*" />
+        <file src="TimeZones.WP8\Bin\x86\Release\TimeZones.dll" target="lib\wp8\TimeZones.dll" />
+        <file src="TimeZones.WP8\Bin\x86\Release\TimeZones.pdb" target="lib\wp8\TimeZones.pdb" />
+        <file src="TimeZones.WP8\Bin\x86\Release\TimeZones.WP8.dll" target="lib\wp8\TimeZones.WP8.dll" />
+        <file src="TimeZones.WP8\Bin\x86\Release\TimeZones.WP8.Native.pdb" target="lib\wp8\TimeZones.WP8.Native.pdb" />
+        <file src="TimeZones.WP8\Bin\x86\Release\TimeZones.WP8.Native.winmd" target="lib\wp8\TimeZones.WP8.Native.winmd" />
+        <file src="TimeZones.WP8\Bin\x86\Release\TimeZones.WP8.pdb" target="lib\wp8\TimeZones.WP8.pdb" />
+        <file src="TimeZones.WP8\Bin\x86\Release\TimeZones.xml" target="lib\wp8\TimeZones.xml" />        
+        <file src="**\*.cs;**\*.h;**\.cpp" target="src" exclude="_ReSharper.*\**\*.*;packages\**\*.*;**\Debug\**\*.*" />
     </files>
 </package>

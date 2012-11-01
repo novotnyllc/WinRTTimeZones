@@ -115,8 +115,7 @@ namespace TimeZones.Internal
             var utcDateTime = new SYSTEMTIME(dateTimeOffset.UtcDateTime);
 
             TIME_ZONE_INFORMATION tzi;
-            var year = utcDateTime.Year;
-            if (SafeNativeMethods.GetTimeZoneInformationForYear(year, ref _source, out tzi))
+            if (SafeNativeMethods.GetTimeZoneInformationForYear(utcDateTime.Year, ref _source, out tzi))
             {
                 SYSTEMTIME destDateTime;
                 if (SafeNativeMethods.SystemTimeToTzSpecificLocalTime(ref tzi, ref utcDateTime, out destDateTime))
@@ -140,7 +139,8 @@ namespace TimeZones.Internal
             Marshal.ThrowExceptionForHR(error);
             throw new TimeZoneInfoExException(error, "Win32 error occured");
         }
-
+        
+        // Based on code from http://www.codeguru.com/cpp/cpp/date_time/routines/article.php/c19485/A-Time-Zone-API-supplement.htm
         private static SYSTEMTIME FindTimeZoneDate(SYSTEMTIME encoded, short year)
         {
             var st = new SYSTEMTIME();
@@ -230,6 +230,7 @@ namespace TimeZones.Internal
                                 DateTimeKind.Unspecified);
         }
 
+        // Based on code from http://www.codeguru.com/cpp/cpp/date_time/routines/article.php/c19485/A-Time-Zone-API-supplement.htm
         private static bool IsDaylightTime(DateTime date, ref TIME_ZONE_INFORMATION tzi)
         {
             if (tzi.StandardDate.Month == 0 || tzi.DaylightDate.Month == 0) // Not daylight time in the TZ

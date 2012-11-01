@@ -74,6 +74,8 @@ namespace Native
 			return dt;
 		}
 
+		// Based on code from http://www.codeguru.com/cpp/cpp/date_time/routines/article.php/c19485/A-Time-Zone-API-supplement.htm
+
 		static int inline dayofweek(int y, int m, int d) /* 0 = Sunday / int y, m, d; / 1 <= m <= 12, y > 1752 or so */ 
 		{ 
 			static int t[] = {0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4}; 
@@ -84,7 +86,7 @@ namespace Native
 
 		static void inline FindTimezoneDate(const SYSTEMTIME *pEncoded, UINT wYear, SYSTEMTIME *pOut)
 		{
-			 // check for idiots
+			 // check for invalid data
 			if( pEncoded == NULL || pOut == NULL ) return;
 
 			SYSTEMTIME	st;

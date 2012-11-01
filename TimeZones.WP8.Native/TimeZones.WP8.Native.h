@@ -18,32 +18,21 @@ namespace Native
 
     public ref class TimeZoneInfoEx sealed
     {
-	private:
-		
-		TimeZoneInfoEx(DYNAMIC_TIME_ZONE_INFORMATION);
+	private:				
 		DYNAMIC_TIME_ZONE_INFORMATION _source;
-		//static IMap<String^, TimeZoneInfoEx^>^ _timeZoneData;
 		
 	public:
 		static IMap<String^, TimeZoneInfoEx^>^ CreateMap();
-		//static TimeZoneInfoEx^ FindSystemTimeZoneById(String^);
-		DateTime ConvertTime(DateTime dateTime, TimeSpan* offset);
-		bool IsDaylightSavingTime(DateTime dateTime);
-		
-
-    public:
-	//	static TimeZoneInfoEx^ FindSystemTimeZoneById(String^);
-		//TimeZoneInfoEx();
-
-	property String^ Name;
-	property String^ StandardName;
-	property String^ DaylightName;
-	property TimeSpan BaseUtcOffset;
+		DateTime ConvertTime(DateTime utcDateTime, TimeSpan* offset);
+		bool IsDaylightSavingTime(DateTime utcDateTime);		    
+		property String^ Name;
+		property String^ StandardName;
+		property String^ DaylightName;
+		property TimeSpan BaseUtcOffset;
 
 	private:
-	
+		TimeZoneInfoEx(DYNAMIC_TIME_ZONE_INFORMATION);
 		static bool IsDaylightTime(const SYSTEMTIME*, const TIME_ZONE_INFORMATION*);
-
 
 		static long long inline SecondsToTicks(long long seconds)
 		{

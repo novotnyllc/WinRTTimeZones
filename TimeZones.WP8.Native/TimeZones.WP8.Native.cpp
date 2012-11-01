@@ -26,9 +26,6 @@ TimeZoneInfoEx::TimeZoneInfoEx(DYNAMIC_TIME_ZONE_INFORMATION tz) : _source(tz)
 	BaseUtcOffset = ts;
 }
 
-// static init
-//IMap<String^, TimeZoneInfoEx^>^ TimeZoneInfoEx::_timeZoneData = TimeZoneInfoEx::CreateMap();
-
 IMap<String^, TimeZoneInfoEx^>^ TimeZoneInfoEx::CreateMap()
 {
 			auto map = ref new Map<String^, TimeZoneInfoEx^>();
@@ -47,20 +44,19 @@ IMap<String^, TimeZoneInfoEx^>^ TimeZoneInfoEx::CreateMap()
 			return map;
 }
 
-bool TimeZoneInfoEx::IsDaylightSavingTime(DateTime dateTime)
+bool TimeZoneInfoEx::IsDaylightSavingTime(DateTime utcDateTime)
 {
-	auto utcDateTime = DateTimeToSystemTime(&dateTime);
-	TIME_ZONE_INFORMATION tzi;
+	// Convert the input time (as UTC) to a system time
+	auto st = DateTimeToSystemTime(&utcDateTime);
 
-	if(GetTimeZoneInformationForYear(utcDateTime.wYear, &_source, &tzi))
+	TIME_ZONE_INFORMATION tzi;
+	if(GetTimeZoneInformationForYear(st.wYear, &_source, &tzi))
 	{
 		SYSTEMTIME destDateTime;
-		if(SystemTimeToTzSpecificLocalTime(&tzi, &utcDateTime, &destDateTime))
+		if(SystemTimeToTzSpecificLocalTime(&tzi, &st, &destDateTime))
 		{
-
-			auto dt = SystemTimeToDateTime(&destDateTime);
+			// Determine if the specified time in is daylight in the local time zone
 			auto daylight = IsDaylightTime(&destDateTime, &tzi);
-
 			return daylight;
 		}
 	}
@@ -69,21 +65,19 @@ bool TimeZoneInfoEx::IsDaylightSavingTime(DateTime dateTime)
 	throw ref new Exception(error, "Win32 Error occurred");
 }
 
-DateTime TimeZoneInfoEx::ConvertTime(DateTime dateTime, TimeSpan* offset)
+DateTime TimeZoneInfoEx::ConvertTime(DateTime utcDateTime, TimeSpan* offset)
 {
-
-	auto utcDateTime = DateTimeToSystemTime(&dateTime);
+	// Convert the input time (as UTC) to a system time
+	auto st = DateTimeToSystemTime(&utcDateTime);
 	TIME_ZONE_INFORMATION tzi;
 
-	if(GetTimeZoneInformationForYear(utcDateTime.wYear, &_source, &tzi))
+	if(GetTimeZoneInformationForYear(st.wYear, &_source, &tzi))
 	{
 		SYSTEMTIME destDateTime;
-		if(SystemTimeToTzSpecificLocalTime(&tzi, &utcDateTime, &destDateTime))
+		if(SystemTimeToTzSpecificLocalTime(&tzi, &st, &destDateTime))
 		{
-
-			auto dt = SystemTimeToDateTime(&destDateTime);
+			// Determine offset to return as WinRT's date time does not contain offset info			
 			auto daylight = IsDaylightTime(&destDateTime, &tzi);
-
 
 			auto bias = tzi.Bias + tzi.StandardBias;
 			
@@ -91,11 +85,12 @@ DateTime TimeZoneInfoEx::ConvertTime(DateTime dateTime, TimeSpan* offset)
 				bias += tzi.DaylightBias;
 
 			offset->Duration = SecondsToTicks(-bias);
+
+			// Finally, convert the input time (which is UTC) to the specified TZ's time
+			auto dt = SystemTimeToDateTime(&destDateTime);
 			return dt;
 		}
-	}
-
-	
+	}	
 
 	auto error = GetLastError();
 	throw ref new Exception(error, "Win32 Error occurred");
@@ -137,11 +132,6 @@ bool TimeZoneInfoEx::IsDaylightTime(const SYSTEMTIME* date, const TIME_ZONE_INFO
 	return false;
 }
 
-//
-//TimeZoneInfoEx^ TimeZoneInfoEx::FindSystemTimeZoneById(String^ id)
-//{
-//	return _timeZoneData->Lookup(id);
-//}
 
 }
 }

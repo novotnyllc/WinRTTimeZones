@@ -56,7 +56,7 @@ namespace TimeZones.Internal
         public string DaylightName { get; private set; }
 
         public TimeSpan BaseUtcOffset { get; private set; }
-        
+
 
         /// <summary>
         ///     Gets a TimeZoneInfo by id.
@@ -139,9 +139,9 @@ namespace TimeZones.Internal
             Marshal.ThrowExceptionForHR(error);
             throw new TimeZoneInfoExException(error, "Win32 error occured");
         }
-        
+
         // Based on code from http://www.codeguru.com/cpp/cpp/date_time/routines/article.php/c19485/A-Time-Zone-API-supplement.htm
-        private static SYSTEMTIME FindTimeZoneDate(SYSTEMTIME encoded, short year)
+        private static DateTime FindTimeZoneDate(SYSTEMTIME encoded, short year)
         {
             var st = new SYSTEMTIME();
 
@@ -184,10 +184,9 @@ namespace TimeZones.Internal
                 // Fill in the rest
                 st.Day = (short)day;
                 st.DayOfWeek = encoded.DayOfWeek;
-
             }
 
-            return st;
+            return FromSystemTime(st);
         }
 
 
@@ -237,11 +236,8 @@ namespace TimeZones.Internal
                 return false;
 
             // Reuse the DateTime greater/less-than operators and rules
-            var stStd = FindTimeZoneDate(tzi.StandardDate, (short)date.Year);
-            var stDlt = FindTimeZoneDate(tzi.DaylightDate, (short)date.Year);
-
-            var stdDate = FromSystemTime(stStd);
-            var dltDate = FromSystemTime(stDlt);
+            var stdDate = FindTimeZoneDate(tzi.StandardDate, (short)date.Year);
+            var dltDate = FindTimeZoneDate(tzi.DaylightDate, (short)date.Year);
 
             // Down under?
             if (stdDate < dltDate)

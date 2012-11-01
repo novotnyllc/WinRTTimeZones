@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -114,7 +113,7 @@ namespace TimeZones.Internal
         public DateTimeOffset ConvertTime(DateTimeOffset dateTimeOffset)
         {
             TimeSpan offset;
-            var dto = _source.ConvertTime(dateTimeOffset, out offset);
+            var dto = _source.ConvertTime(dateTimeOffset.ToUniversalTime(), out offset);
 
             // The UtcDateTime here isn't really UTC -- it's the converted local time
             var dt = DateTime.SpecifyKind(dto.UtcDateTime, DateTimeKind.Unspecified);
@@ -145,7 +144,7 @@ namespace TimeZones.Internal
 
         public bool IsDaylightSavingTime(DateTimeOffset dateTimeOffset)
         {
-            return _source.IsDaylightSavingTime(dateTimeOffset);
+            return _source.IsDaylightSavingTime(dateTimeOffset.ToUniversalTime());
         }
     }
 }

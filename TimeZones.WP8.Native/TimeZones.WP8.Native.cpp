@@ -109,13 +109,30 @@ bool TimeZoneInfoEx::IsDaylightTime(const SYSTEMTIME* date, const TIME_ZONE_INFO
 		return false;
 	}
 
-	auto destDate = SystemTimeToDateTime(date);
-	// convert these to date times so we can do simple comparisons
-	auto stdDate = SystemTimeToDateTime(tzi->StandardDate, date->wYear);
-	auto dltDate = SystemTimeToDateTime(tzi->DaylightDate, date->wYear);
 
-	if(destDate.UniversalTime >= dltDate.UniversalTime && destDate.UniversalTime < stdDate.UniversalTime)
-		return true;
+	// Adjust the encoded value to this year's values
+	SYSTEMTIME sttzd, sttzs;
+	FindTimezoneDate(&tzi->DaylightDate, date->wYear, &sttzd);
+	FindTimezoneDate(&tzi->StandardDate, date->wYear, &sttzs);
+	
+	
+	auto destDate = SystemTimeToDateTime(date).UniversalTime;
+	// convert these to date times so we can do simple comparisons
+
+	auto stdDate = SystemTimeToDateTime(&sttzs).UniversalTime;
+	auto dltDate = SystemTimeToDateTime(&sttzd).UniversalTime;
+
+
+	// Down under?
+    if (stdDate < dltDate)
+    {
+        // DST is backwards
+        if (destDate < stdDate || destDate >= dltDate)
+            return true;
+    }
+    else if (destDate < stdDate && destDate >= dltDate)
+        return true;
+
 
 	return false;
 }

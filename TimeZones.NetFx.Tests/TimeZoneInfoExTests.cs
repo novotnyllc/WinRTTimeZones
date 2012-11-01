@@ -31,6 +31,19 @@ namespace WinRTTimeZones.Tests
         }
 
         [TestMethod]
+        public void ConvertTimeToMountain2012Test()
+        {
+            var dt = new DateTime(2012, 11, 1, 12, 0, 0, DateTimeKind.Utc);
+
+            // -7 hours
+            var local = TimeZoneService.ConvertTimeBySystemTimeZoneId(dt, "Mountain Standard Time");
+
+
+            local.Hour.Should().Be(6);
+            local.Offset.Should().Be(TimeSpan.FromHours(-6)); // Daylight time in 2012
+        }
+
+        [TestMethod]
         public void BaseUtcOffsetShouldBeCorrect()
         {
             var tz = TimeZoneService.FindSystemTimeZoneById("Central Standard Time");

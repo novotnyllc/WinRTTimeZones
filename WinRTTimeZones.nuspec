@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>WinRTTimeZones</id>
-        <version>0.7.1</version>
+        <version>0.7.2</version>
         <title>Time Zone Conversion for Windows Runtime and PCL</title>
         <authors>Oren Novotny</authors>
         <owners>onovotny</owners>

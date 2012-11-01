@@ -27,7 +27,8 @@ namespace Phone8Tests
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
 
-            ConvertTimeToMountanPre2007Test();
+            //ConvertTimeToMountanPre2007Test();
+            ConvertTimeToMountain2012Test();
         }
 
         // Sample code for building a localized ApplicationBar
@@ -45,6 +46,21 @@ namespace Phone8Tests
         //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
         //    ApplicationBar.MenuItems.Add(appBarMenuItem);
         //}
+
+        public void ConvertTimeToMountain2012Test()
+        {
+            var dt = new DateTime(2012, 11, 1, 12, 0, 0, DateTimeKind.Utc);
+
+            // -7 hours
+            var local = TimeZoneService.ConvertTimeBySystemTimeZoneId(dt, "Mountain Standard Time");
+
+
+            Debug.Assert(local.Hour == 6);
+            //local.Hour.Should().Be(6);
+
+            Debug.Assert(local.Offset == TimeSpan.FromHours(-6));
+            //local.Offset.Should().Be(TimeSpan.FromHours(-6)); // Daylight time in 2012
+        }
 
         public void ConvertTimeToMountanPre2007Test()
         {

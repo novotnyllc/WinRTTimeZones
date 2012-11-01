@@ -115,7 +115,8 @@ namespace TimeZones.Internal
             var utcDateTime = new SYSTEMTIME(dateTimeOffset.UtcDateTime);
 
             TIME_ZONE_INFORMATION tzi;
-            if (SafeNativeMethods.GetTimeZoneInformationForYear(utcDateTime.Year, ref _source, out tzi))
+            var year = utcDateTime.Year;
+            if (SafeNativeMethods.GetTimeZoneInformationForYear(year, ref _source, out tzi))
             {
                 SYSTEMTIME destDateTime;
                 if (SafeNativeMethods.SystemTimeToTzSpecificLocalTime(ref tzi, ref utcDateTime, out destDateTime))
@@ -139,6 +140,56 @@ namespace TimeZones.Internal
             Marshal.ThrowExceptionForHR(error);
             throw new TimeZoneInfoExException(error, "Win32 error occured");
         }
+
+        private static SYSTEMTIME FindTimeZoneDate(SYSTEMTIME encoded, short year)
+        {
+            var st = new SYSTEMTIME();
+
+            if (encoded.Month != 0)
+            {
+                st.Month = encoded.Month;
+                st.Day = 1;
+                st.Year = year;
+                st.Hour = encoded.Hour;
+
+                // Get the day of th week for the first day of the month
+                var dt = new DateTime(st.Year, st.Month, st.Day);
+                var dayOfWeek = (int)dt.DayOfWeek;
+
+                // get the week offset
+                var weekOfMonth = encoded.Day;
+                var day = 1;
+
+
+                // first part of week?
+                if (dayOfWeek <= encoded.DayOfWeek)
+                {
+                    // figure out the day of the month
+                    day = 1 + ((weekOfMonth - 1)*7 + (encoded.DayOfWeek - dayOfWeek));
+                }
+                else
+                {
+                    // Figure out the day of hte month
+                    day = 1 + (weekOfMonth*7 - (dayOfWeek - encoded.DayOfWeek));
+                }
+
+                // could be too long
+                if (weekOfMonth == 5)
+                {
+                    // Fix
+                    while (day > 31)
+                        day -= 7;
+                }
+
+                // Fill in the rest
+                st.Day = (short)day;
+                st.DayOfWeek = encoded.DayOfWeek;
+
+            }
+
+            return st;
+        }
+
 
         /// <summary>
         ///     Determines if the current datetime value is in daylight time or not
@@ -167,9 +218,9 @@ namespace TimeZones.Internal
             throw new TimeZoneInfoExException(error, "Win32 error occured");
         }
 
-        private static DateTime FromSystemTime(SYSTEMTIME systemTime, short? yearOverride = null)
+        private static DateTime FromSystemTime(SYSTEMTIME systemTime)
         {
-            return new DateTime(yearOverride ?? systemTime.Year,
+            return new DateTime(systemTime.Year,
                                 systemTime.Month,
                                 systemTime.Day,
                                 systemTime.Hour,
@@ -185,10 +236,20 @@ namespace TimeZones.Internal
                 return false;
 
             // Reuse the DateTime greater/less-than operators and rules
-            var stdDate = FromSystemTime(tzi.StandardDate, (short)date.Year);
-            var dltDate = FromSystemTime(tzi.DaylightDate, (short)date.Year);
+            var stStd = FindTimeZoneDate(tzi.StandardDate, (short)date.Year);
+            var stDlt = FindTimeZoneDate(tzi.DaylightDate, (short)date.Year);
 
-            if (date >= dltDate && date < stdDate)
+            var stdDate = FromSystemTime(stStd);
+            var dltDate = FromSystemTime(stDlt);
+
+            // Down under?
+            if (stdDate < dltDate)
+            {
+                // DST is backwards
+                if (date < stdDate || date >= dltDate)
+                    return true;
+            }
+            else if (date < stdDate && date >= dltDate)
                 return true;
 
             return false;

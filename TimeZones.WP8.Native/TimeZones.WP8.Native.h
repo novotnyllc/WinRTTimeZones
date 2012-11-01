@@ -74,19 +74,60 @@ namespace Native
 			return dt;
 		}
 
-		static DateTime inline SystemTimeToDateTime(SYSTEMTIME st, short yearOverride)
+		static int inline dayofweek(int y, int m, int d) /* 0 = Sunday / int y, m, d; / 1 <= m <= 12, y > 1752 or so */ 
+		{ 
+			static int t[] = {0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4}; 
+			y -= m < 3; 
+			if( m > 1 ) --m;
+			return (y + y/4 - y/100 + y/400 + t[m%12] + d) % 7; 
+		}
+
+		static void inline FindTimezoneDate(const SYSTEMTIME *pEncoded, UINT wYear, SYSTEMTIME *pOut)
 		{
-			FILETIME ft;
-			st.wYear = yearOverride;
+			 // check for idiots
+			if( pEncoded == NULL || pOut == NULL ) return;
 
-			SystemTimeToFileTime(&st, &ft);
+			SYSTEMTIME	st;
 
-			ULARGE_INTEGER ulint = {ft.dwLowDateTime, ft.dwHighDateTime};
+			ZeroMemory(&st, sizeof(SYSTEMTIME));
+			 // NULL month?  If so then there is no decode
+			if( pEncoded->wMonth != 0 ) 
+			{
+				st.wMonth = pEncoded->wMonth;
+				st.wDay = 1;
+				st.wYear = wYear;
+				st.wHour = pEncoded->wHour;
+				 // Get the Day of Week for the first day of the month
+				int wDayOfWeek = dayofweek(st.wYear, st.wMonth, st.wDay);
+				 // Get the week offset
+				int wWeekOfMonth = pEncoded->wDay;
+				int wDay = 1;
 
-			DateTime dt;
-			dt.UniversalTime = ulint.QuadPart;
+				 // First part of the week?
+				if( wDayOfWeek <= pEncoded->wDayOfWeek )
+				{
+					 // Figure out the day of the month
+					wDay = 1+((wWeekOfMonth-1)*7+(pEncoded->wDayOfWeek-wDayOfWeek));
+				}
+				else
+				{
+					 // Figure out the day of the month
+					wDay = 1+(wWeekOfMonth*7-(wDayOfWeek-pEncoded->wDayOfWeek));
+				}
 
-			return dt;
+				 // Oops, too long
+				if( wWeekOfMonth == 5 )
+				{
+					 // Fix
+					while( wDay > 31 ) wDay -= 7;
+				}
+
+				 // Fill in misc
+				st.wDay = wDay;
+				st.wDayOfWeek = pEncoded->wDayOfWeek;
+			}
+			 // Copy it to the user
+			*pOut = st;
 		}
 				
     };

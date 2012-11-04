@@ -27,8 +27,13 @@ namespace Phone8Tests
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
 
-            //ConvertTimeToMountanPre2007Test();
-            ConvertTimeToMountain2012Test();
+            Loaded += MainPage_Loaded;
+
+        }
+
+        void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.StartTestRunner();
         }
 
         // Sample code for building a localized ApplicationBar
@@ -47,51 +52,6 @@ namespace Phone8Tests
         //    ApplicationBar.MenuItems.Add(appBarMenuItem);
         //}
 
-        public void ConvertTimeToMountain2012Test()
-        {
-            var dt = new DateTime(2012, 11, 1, 12, 0, 0, DateTimeKind.Utc);
-
-            // -7 hours
-            var local = TimeZoneService.ConvertTimeBySystemTimeZoneId(dt, "Mountain Standard Time");
-
-
-            Debug.Assert(local.Hour == 6);
-            //local.Hour.Should().Be(6);
-
-            Debug.Assert(local.Offset == TimeSpan.FromHours(-6));
-            //local.Offset.Should().Be(TimeSpan.FromHours(-6)); // Daylight time in 2012
-        }
-
-        public void ConvertTimeToMountanPre2007Test()
-        {
-            var dt = new DateTime(2006, 3, 15, 12, 0, 0, DateTimeKind.Utc);
-
-        //   //  -7 hours
-            var local = TimeZoneService.ConvertTimeBySystemTimeZoneId(dt, "Mountain Standard Time");
-
-            var tz = TimeZoneService.FindSystemTimeZoneById("Mountain Standard Time");
-               Debug.WriteLine(local);
-         
-        
-
-         //   Debug.WriteLine(tz);
-            //local.Hour.Should().Be(5);
-            //local.Offset.Should().Be(TimeSpan.FromHours(-7));
-
-
-            //var map = TimeZoneInfoEx.CreateMap();
-
-            //var tz = map["Mountain Standard Time"];
-
-
-            //TimeSpan offset;
-            //var dto = tz.ConvertTime(dt, out offset);
-
-            //var c = DateTime.SpecifyKind(dt.Add(offset), DateTimeKind.Unspecified);
-            
-            //var converted = new DateTimeOffset(c, offset);
-
-            //Debug.WriteLine(tz.BaseUtcOffset);
-        }
+       
     }
 }

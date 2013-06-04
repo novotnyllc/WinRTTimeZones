@@ -13,7 +13,27 @@ namespace TimeZones.WinRT
     /// </summary>
     public sealed class TimeZoneService
     {
-        private static readonly ITimeZoneService _service = PlatformAdapter.Resolve<ITimeZoneService>(true);
+        private static readonly ITimeZoneServiceAdapter _service = PlatformAdapter.Resolve<ITimeZoneServiceAdapter>(true);
+        private static readonly Lazy<ITimeZoneEx> _utcTimeZone = new Lazy<ITimeZoneEx>(() => new TimeZoneEx(_service.FindSystemTimeZoneById("UTC")));
+
+        /// <summary>
+        /// UTC Time Zone
+        /// </summary>
+        public static ITimeZoneEx Utc
+        {
+            get { return _utcTimeZone.Value; }
+        }
+
+        /// <summary>
+        /// Local Time Zone
+        /// </summary>
+        public static ITimeZoneEx Local
+        {
+            get
+            {
+                return new TimeZoneEx(_service.Local);
+            }
+        }
 
         /// <summary>
         ///     All available time zones

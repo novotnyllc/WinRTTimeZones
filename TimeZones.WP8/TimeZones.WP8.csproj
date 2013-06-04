@@ -85,7 +85,7 @@
   <ItemGroup>
     <Compile Include="Internal\TimeZoneInfoEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimeZoneService.cs" />
+    <Compile Include="TimeZoneServiceAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TimeZones.WP8.Native\TimeZones.WP8.Native.vcxproj">

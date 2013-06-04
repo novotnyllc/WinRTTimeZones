@@ -77,6 +77,13 @@ namespace TimeZones.Internal
             throw new TimeZoneInfoExException(-1, "Time Zone is not in the list of TimeZones");
         }
 
+        public static TimeZoneInfoEx GetLocalTimeZone()
+        {
+            var id = TZI.GetLocalTimeId();
+
+            return FindSystemTimeZoneById(id);
+        }
+
         private bool Equals(TimeZoneInfoEx other)
         {
             return string.Equals(Name, other.Name);

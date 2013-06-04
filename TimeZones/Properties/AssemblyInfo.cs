@@ -30,3 +30,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly: InternalsVisibleTo("TimeZones.WinRT")]
+[assembly: InternalsVisibleTo("TimeZones.NetCore")]
+[assembly: InternalsVisibleTo("TimeZones.WP8")]
+[assembly: InternalsVisibleTo("TimeZones.NetFX")]

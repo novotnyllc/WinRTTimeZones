@@ -9,7 +9,7 @@ namespace TimeZones
     /// <summary>
     /// 
     /// </summary>
-    public interface ITimeZoneService
+    internal interface ITimeZoneServiceAdapter
     {
         /// <summary>
         ///     All available time zones
@@ -19,9 +19,14 @@ namespace TimeZones
         /// <summary>
         /// Gets a TimeZoneEx by id.
         /// </summary>
-        /// <param name="id">Invariant Time Zone name. See TimeZones property for full list.</param>
+        /// <param name="id">Invariant Time Zone name. See SystemTimeZoneIds property for full list.</param>
         /// <returns></returns>
         ITimeZoneEx FindSystemTimeZoneById(string id);
+
+        /// <summary>
+        /// The Local Time Zone
+        /// </summary>
+        ITimeZoneEx Local { get; }
     }
 
     /// <summary>

@@ -17,6 +17,23 @@ namespace WinRTTimeZones.Tests
         {
             TimeZoneService.SystemTimeZoneIds.Should().Contain("Eastern Standard Time");
         }
+        
+        [TestMethod]
+        public void UtcTest()
+        {
+            var tz = TimeZoneService.Utc;
+
+            Assert.AreEqual("UTC", tz.Id);
+            Assert.AreEqual(new TimeSpan(0), tz.BaseUtcOffset);
+        }
+
+        [TestMethod]
+        public void LocalTimeZoneTest()
+        {
+            var tz = TimeZoneService.Local;
+
+            Assert.AreEqual("Eastern Standard Time", tz.Id);
+        }
 
         [TestMethod]
         public void ConvertTimeToMountanPre2007Test()

@@ -26,6 +26,19 @@ TimeZoneInfoEx::TimeZoneInfoEx(DYNAMIC_TIME_ZONE_INFORMATION tz) : _source(tz)
 	BaseUtcOffset = ts;
 }
 
+String^ TimeZoneInfoEx::GetLocalTimeId()
+{
+	DYNAMIC_TIME_ZONE_INFORMATION tz;
+	auto result = GetDynamicTimeZoneInformation(&tz);
+	if(result == 0 || result == 1 || result == 2)
+	{
+		return ref new String(tz.TimeZoneKeyName);
+	}
+
+	auto error = GetLastError();
+	throw ref new Exception(error, "Win32 Error occurred");
+}
+
 IMap<String^, TimeZoneInfoEx^>^ TimeZoneInfoEx::CreateMap()
 {
 			auto map = ref new Map<String^, TimeZoneInfoEx^>();

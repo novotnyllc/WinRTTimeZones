@@ -12,9 +12,29 @@ namespace TimeZones
     /// </summary>
     public static class TimeZoneService
     {
-        private static readonly ITimeZoneService _service = PlatformAdapter.Resolve<ITimeZoneService>(true);
+        private static readonly ITimeZoneServiceAdapter _service = PlatformAdapter.Resolve<ITimeZoneServiceAdapter>(true);
 
-   
+        private static readonly Lazy<ITimeZoneEx> _utcTimeZone = new Lazy<ITimeZoneEx>(() => _service.FindSystemTimeZoneById("UTC"));
+
+        /// <summary>
+        /// UTC Time Zone
+        /// </summary>
+        public static ITimeZoneEx Utc
+        {
+            get { return _utcTimeZone.Value; }
+        }
+
+        /// <summary>
+        /// Local Time Zone
+        /// </summary>
+        public static ITimeZoneEx Local
+        {
+            get
+            {
+                return _service.Local;
+            }
+        }
+
         /// <summary>
         ///     All available time zones
         /// </summary>

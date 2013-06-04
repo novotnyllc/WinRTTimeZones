@@ -83,7 +83,8 @@ namespace TimeZones.Internal
         }
 
         /// <summary>
-        ///     Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />.
+        ///     Determines whether the specified <see cref="T:System.Object" /> is equal to the current
+        ///     <see cref="T:System.Object" />.
         /// </summary>
         /// <returns> true if the specified object is equal to the current object; otherwise, false. </returns>
         /// <param name="obj"> The object to compare with the current object. </param>
@@ -220,13 +221,29 @@ namespace TimeZones.Internal
         private static DateTime FromSystemTime(SYSTEMTIME systemTime)
         {
             return new DateTime(systemTime.Year,
-                                systemTime.Month,
-                                systemTime.Day,
-                                systemTime.Hour,
-                                systemTime.Minute,
-                                systemTime.Second,
-                                systemTime.Milliseconds,
-                                DateTimeKind.Unspecified);
+                systemTime.Month,
+                systemTime.Day,
+                systemTime.Hour,
+                systemTime.Minute,
+                systemTime.Second,
+                systemTime.Milliseconds,
+                DateTimeKind.Unspecified);
+        }
+
+        public static TimeZoneInfoEx GetLocalTimeZone()
+        {
+            DYNAMIC_TIME_ZONE_INFORMATION tzi;
+            var type = SafeNativeMethods.GetDynamicTimeZoneInformation(out tzi);
+
+            if (type == 0 || type == 1 || type == 2)
+            {
+                // get the time zone key here and return a cached instance
+                return FindSystemTimeZoneById(tzi.TimeZoneKeyName);
+            }
+
+            var error = Marshal.GetLastWin32Error();
+            Marshal.ThrowExceptionForHR(error);
+            throw new TimeZoneInfoExException(error, "Win32 error occured");
         }
 
         // Based on code from http://www.codeguru.com/cpp/cpp/date_time/routines/article.php/c19485/A-Time-Zone-API-supplement.htm
@@ -360,8 +377,8 @@ namespace TimeZones.Internal
         {
             [DllImport("kernel32.dll")]
             internal static extern bool SystemTimeToTzSpecificLocalTime([In] ref TIME_ZONE_INFORMATION lpTimeZoneInformation,
-                                                                        [In] ref SYSTEMTIME lpUniversalTime,
-                                                                        out SYSTEMTIME lpLocalTime);
+                [In] ref SYSTEMTIME lpUniversalTime,
+                out SYSTEMTIME lpLocalTime);
 
             [DllImport("Advapi32.dll")]
             internal static extern int EnumDynamicTimeZoneInformation([In] int dwIndex, out DYNAMIC_TIME_ZONE_INFORMATION lpTimeZoneInformation);
@@ -369,8 +386,11 @@ namespace TimeZones.Internal
 
             [DllImport("kernel32.dll")]
             internal static extern bool GetTimeZoneInformationForYear([In] short wYear,
-                                                                      [In] ref DYNAMIC_TIME_ZONE_INFORMATION pdtzi,
-                                                                      out TIME_ZONE_INFORMATION ptzi);
+                [In] ref DYNAMIC_TIME_ZONE_INFORMATION pdtzi,
+                out TIME_ZONE_INFORMATION ptzi);
+
+            [DllImport("kernel32.dll")]
+            internal static extern int GetDynamicTimeZoneInformation(out DYNAMIC_TIME_ZONE_INFORMATION pTimeZoneInformation);
         }
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]

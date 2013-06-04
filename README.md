@@ -52,6 +52,16 @@ The main APIs are in the _TimeZoneService_ class:
     /// Sets the specified timezone on the date without converting the time
     /// </summary>
 	public static DateTimeOffset SpecifyTimeZone(DateTimeOffset dateTimeOffset, ITimeZoneEx timeZone)
+	
+	/// <summary>
+	/// UTC Time Zone
+    /// </summary>
+    public static ITimeZoneEx Utc
+
+	/// <summary>
+    /// Local Time Zone
+    /// </summary>
+    public static ITimeZoneEx Local
 
 For repeated use, you can get a reference to a specific _ITimeZoneEx_ instance:
 

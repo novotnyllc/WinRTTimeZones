@@ -90,9 +90,12 @@ namespace TimeZones.Internal
 
             if (_assembly == null)
             {
-                _assembly = ProbeForPlatformSpecificAssembly();
-                if (_assembly == null)
-                    throw new InvalidOperationException(Strings.AssemblyNotSupported);
+                lock(_lock)
+                {
+                    _assembly = ProbeForPlatformSpecificAssembly();
+                    if (_assembly == null)
+                        throw new InvalidOperationException(Strings.AssemblyNotSupported);
+                }
             }
 
             return _assembly;
@@ -113,7 +116,7 @@ namespace TimeZones.Internal
         private Assembly ProbeForPlatformSpecificAssembly(string platformName)
         {
             AssemblyName assemblyName = new AssemblyName(GetType().GetTypeInfo().Assembly.FullName);
-            assemblyName.Name = "TimeZones." + platformName;    // for example, MetroLog.NetCore
+            assemblyName.Name = "TimeZones." + platformName;    // for TimeZones, MetroLog.NetCore
 
             try
             {

@@ -17,20 +17,20 @@ Supported Platforms: WinRT, WinStore, WP8, .NET4.5</description>
         <tags>WinRT TimeZone PCL WP8</tags>
     </metadata>
     <files>
-        <file src="build\Mixed Platforms\Release\TimeZones.dll" target="lib\net45\TimeZones.dll" />
-        <file src="build\Mixed Platforms\Release\TimeZones.NetFx.dll" target="lib\net45\TimeZones.NetFx.dll" />
-        <file src="build\Mixed Platforms\Release\TimeZones.NetFx.pdb" target="lib\net45\TimeZones.NetFx.pdb" />
-        <file src="build\Mixed Platforms\Release\TimeZones.pdb" target="lib\net45\TimeZones.pdb" />
-        <file src="build\Mixed Platforms\Release\TimeZones.xml" target="lib\net45\TimeZones.xml" />
+        <file src="build\Mixed Platforms\Release\TimeZones.NetFx\TimeZones.dll" target="lib\net45\TimeZones.dll" />
+        <file src="build\Mixed Platforms\Release\TimeZones.NetFx\TimeZones.NetFx.dll" target="lib\net45\TimeZones.NetFx.dll" />
+        <file src="build\Mixed Platforms\Release\TimeZones.NetFx\TimeZones.NetFx.pdb" target="lib\net45\TimeZones.NetFx.pdb" />
+        <file src="build\Mixed Platforms\Release\TimeZones.NetFx\TimeZones.pdb" target="lib\net45\TimeZones.pdb" />
+        <file src="build\Mixed Platforms\Release\TimeZones.NetFx\TimeZones.xml" target="lib\net45\TimeZones.xml" />
         <file src="build\Mixed Platforms\Release\TimeZones.NetCore\TimeZones.dll" target="lib\netcore45\TimeZones.dll" />
         <file src="build\Mixed Platforms\Release\TimeZones.NetCore\TimeZones.NetCore.dll" target="lib\netcore45\TimeZones.NetCore.dll" />
         <file src="build\Mixed Platforms\Release\TimeZones.NetCore\TimeZones.NetCore.pdb" target="lib\netcore45\TimeZones.NetCore.pdb" />
         <file src="build\Mixed Platforms\Release\TimeZones.NetCore\TimeZones.NetCore.pri" target="lib\netcore45\TimeZones.NetCore.pri" />
         <file src="build\Mixed Platforms\Release\TimeZones.NetCore\TimeZones.pdb" target="lib\netcore45\TimeZones.pdb" />
         <file src="build\Mixed Platforms\Release\TimeZones.NetCore\TimeZones.xml" target="lib\netcore45\TimeZones.xml" />
-        <file src="build\Mixed Platforms\Release\TimeZones.dll" target="lib\portable-net45+wp8+win8\TimeZones.dll" />
-        <file src="build\Mixed Platforms\Release\TimeZones.pdb" target="lib\portable-net45+wp8+win8\TimeZones.pdb" />
-        <file src="build\Mixed Platforms\Release\TimeZones.xml" target="lib\portable-net45+wp8+win8\TimeZones.xml" />
+        <file src="build\Mixed Platforms\Release\TimeZones\TimeZones.dll" target="lib\portable-net45+wp8+win8\TimeZones.dll" />
+        <file src="build\Mixed Platforms\Release\TimeZones\TimeZones.pdb" target="lib\portable-net45+wp8+win8\TimeZones.pdb" />
+        <file src="build\Mixed Platforms\Release\TimeZones\TimeZones.xml" target="lib\portable-net45+wp8+win8\TimeZones.xml" />
         <file src="TimeZones.WP8\Bin\x86\Release\TimeZones.dll" target="lib\wp8\TimeZones.dll" />
         <file src="TimeZones.WP8\Bin\x86\Release\TimeZones.pdb" target="lib\wp8\TimeZones.pdb" />
         <file src="TimeZones.WP8\Bin\x86\Release\TimeZones.WP8.dll" target="lib\wp8\TimeZones.WP8.dll" />

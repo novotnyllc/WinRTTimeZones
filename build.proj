@@ -34,7 +34,7 @@
      <!--  SOLUTIONS  -->
      <SolutionToBuild Include="$(BuildProjectFolderPath)/TimeZones.sln">
          <Targets></Targets>
-         <Properties></Properties>
+         <Properties>GenerateProjectSpecificOutputFolder=true</Properties>
      </SolutionToBuild>
    </ItemGroup>
 

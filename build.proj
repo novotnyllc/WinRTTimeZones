@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <Project DefaultTargets="DesktopBuild" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+   <!-- Do not edit this -->
+   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\TeamBuild\Microsoft.TeamFoundation.Build.targets" />
+   <ProjectExtensions>
+     <!-- Team Foundation Build Version - DO NOT CHANGE - Project File Version 2 and 3 produce the saem results-->
+     <ProjectFileVersion>2</ProjectFileVersion>
+     <Description></Description>
+     <!--<BuildMachine>xxx</BuildMachine>-->
+   </ProjectExtensions>
+
+   <PropertyGroup>
+     <TeamProject>TimeZones</TeamProject>
+     <!--<BuildDirectoryPath>\\xxx\C$\dev\tfs\optimus</BuildDirectoryPath>-->
+     <DropLocation>$(BuildProjectFolderPath)\build</DropLocation>
+     <RunTest>false</RunTest>
+     <RunCodeAnalysis>Never</RunCodeAnalysis>
+     <!--<WorkItemType>Bug</WorkItemType>
+     <WorkItemFieldValues>System.Description=Start the build using Team Build</WorkItemFieldValues>
+     <WorkItemTitle>Build failure in build:</WorkItemTitle>
+     <DescriptionText>This work item was created by Team Build on a build failure.</DescriptionText>
+     <BuildlogText>The build log file is at:</BuildlogText>
+     <ErrorWarningLogText>The errors/warnings log file is at:</ErrorWarningLogText>
+     <UpdateAssociatedWorkItems>true</UpdateAssociatedWorkItems>
+     <AdditionalVCOverrides></AdditionalVCOverrides>
+     <CustomPropertiesForClean></CustomPropertiesForClean>
+     <CustomPropertiesForBuild></CustomPropertiesForBuild>-->
+     <SolutionRoot>$(BuildProjectFolderPath)</SolutionRoot>
+     <BinariesRoot>$(BuildProjectFolderPath)\build</BinariesRoot>
+     
+   </PropertyGroup>
+
+   <ItemGroup>
+     <!--  SOLUTIONS  -->
+     <SolutionToBuild Include="$(BuildProjectFolderPath)/TimeZones.sln">
+         <Targets></Targets>
+         <Properties></Properties>
+     </SolutionToBuild>
+   </ItemGroup>
+
+   <ItemGroup>
+     <!--  CONFIGURATIONS  -->
+     <ConfigurationToBuild Include="Debug|Mixed Platforms">
+         <FlavorToBuild>Debug</FlavorToBuild>
+         <PlatformToBuild>Mixed Platforms</PlatformToBuild>
+     </ConfigurationToBuild>
+     <ConfigurationToBuild Include="Release|Mixed Platforms">
+       <FlavorToBuild>Release</FlavorToBuild>
+       <PlatformToBuild>Mixed Platforms</PlatformToBuild>
+     </ConfigurationToBuild>
+     <ConfigurationToBuild Include="Debug|ARM">
+       <FlavorToBuild>Debug</FlavorToBuild>
+       <PlatformToBuild>ARM</PlatformToBuild>
+     </ConfigurationToBuild>
+     <ConfigurationToBuild Include="Release|ARM">
+       <FlavorToBuild>Release</FlavorToBuild>
+       <PlatformToBuild>ARM</PlatformToBuild>
+     </ConfigurationToBuild>
+   </ItemGroup>
+
+   <!--<ItemGroup>
+     --><!--  TEST ARGUMENTS  --><!--
+     <TestContainer Include="$(OutDir)\vsUnitTests.dll" />
+   </ItemGroup>-->
+
+   <!--<PropertyGroup>
+     --><!-- TEST ARGUMENTS  --><!--
+     <MSTestRefPath>$(ProgramFiles)\Microsoft Visual Studio 10.0\Common7\IDE\PrivateAssemblies</MSTestRefPath>
+     <DevEnvDir>C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE</DevEnvDir>
+     <TestToolsTaskToolPath>C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE\MSTest.exe</TestToolsTaskToolPath>
+   </PropertyGroup>-->
+
+   <ItemGroup>
+     <!--  ADDITIONAL REFERENCE PATH  -->
+   </ItemGroup>
+
+   <!--<Target Name="AfterTest">
+     <GetBuildProperties TeamFoundationServerUrl="$(TeamFoundationServerUrl)"
+                         BuildUri="$(BuildUri)"
+                         Condition=" '$(IsDesktopBuild)' != 'true' ">
+       <Output TaskParameter="TestSuccess" PropertyName="TestSuccess"/>
+     </GetBuildProperties>
+     <SetBuildProperties TeamFoundationServerUrl="$(TeamFoundationServerUrl)"
+                         BuildUri="$(BuildUri)"
+                         CompilationStatus="Failed"
+                         Condition=" '$(IsDesktopBuild)' != 'true' and '$(TestSuccess)' != 'true' ">
+     </SetBuildProperties>
+   </Target>-->
+
+ </Project>

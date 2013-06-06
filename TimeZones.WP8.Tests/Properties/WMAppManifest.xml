@@ -2,7 +2,7 @@
 
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US"/>
-  <App xmlns="" ProductID="{a406173f-8d88-4f6c-ac00-f73f379d3f8f}" Title="Phone8Tests" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="Phone8Tests author" Description="Sample description" Publisher="Phone8Tests" PublisherID="{e2c016cf-3a35-4c6b-b066-c5670b455720}">
+  <App xmlns="" ProductID="{9cd50cde-8c69-44ab-a7a2-374054ee6c2d}" Title="TimeZones.WP8.Tests" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="TimeZones.WP8.Tests author" Description="Sample description" Publisher="TimeZones.WP8.Tests" PublisherID="{a0c6b1e5-703b-409c-86ee-97939734df87}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING"/>
@@ -15,12 +15,12 @@
       <DefaultTask  Name ="_default" NavigationPage="MainPage.xaml"/>
     </Tasks>
     <Tokens>
-      <PrimaryToken TokenID="Phone8TestsToken" TaskName="_default">
+      <PrimaryToken TokenID="TimeZones.WP8.TestsToken" TaskName="_default">
         <TemplateFlip>
           <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
           <Count>0</Count>
           <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
-          <Title>Phone8Tests</Title>
+          <Title>TimeZones.WP8.Tests</Title>
           <BackContent></BackContent>
           <BackBackgroundImageURI></BackBackgroundImageURI>
           <BackTitle></BackTitle>
@@ -29,6 +29,14 @@
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>
+    <ActivatableClasses>
+      <InProcessServer>
+        <Path>vstest_executionengine_platformbridge.dll</Path>
+        <ActivatableClass ActivatableClassId="vstest_executionengine_platformbridge.ServiceMain" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="vstest_executionengine_platformbridge.MessageTransmitter" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="vstest_executionengine_platformbridge.NativeMethods" ThreadingModel="both" />
+      </InProcessServer>
+    </ActivatableClasses>
     <ScreenResolutions>
       <ScreenResolution Name="ID_RESOLUTION_WVGA"/>
       <ScreenResolution Name="ID_RESOLUTION_WXGA"/>

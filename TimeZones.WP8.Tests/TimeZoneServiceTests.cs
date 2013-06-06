@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentAssertions;
-using Microsoft.Phone.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using TimeZones;
 
 namespace WinRTTimeZones.Tests
 {
     [TestClass]
-    public class TimeZoneInfoExTests : WorkItemTest
+    public class TimeZoneInfoExTests 
     {
         [TestMethod]
         public void GetEasternDateTest()

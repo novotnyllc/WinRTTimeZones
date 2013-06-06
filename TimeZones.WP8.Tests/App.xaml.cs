@@ -6,9 +6,9 @@ using System.Windows.Markup;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using Phone8Tests.Resources;
+using TimeZones.WP8.Tests.Resources;
 
-namespace Phone8Tests
+namespace TimeZones.WP8.Tests
 {
     public partial class App : Application
     {

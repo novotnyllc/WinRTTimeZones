@@ -1,6 +1,6 @@
-﻿using Phone8Tests.Resources;
+﻿using TimeZones.WP8.Tests.Resources;
 
-namespace Phone8Tests
+namespace TimeZones.WP8.Tests
 {
     /// <summary>
     /// Provides access to string resources.

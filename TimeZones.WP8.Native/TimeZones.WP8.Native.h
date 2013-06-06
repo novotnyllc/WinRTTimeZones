@@ -23,7 +23,7 @@ namespace Native
 		
 	public:
 		static IMap<String^, TimeZoneInfoEx^>^ CreateMap();
-		static String^ GetLocalTimeId();
+		static String^ GetLocalTimeStandardName();
 		DateTime ConvertTime(DateTime utcDateTime, TimeSpan* offset);
 		bool IsDaylightSavingTime(DateTime utcDateTime);		    
 		property String^ Name;

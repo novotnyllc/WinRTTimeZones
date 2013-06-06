@@ -79,9 +79,12 @@ namespace TimeZones.Internal
 
         public static TimeZoneInfoEx GetLocalTimeZone()
         {
-            var id = TZI.GetLocalTimeId();
+            var name = TZI.GetLocalTimeStandardName();
 
-            return FindSystemTimeZoneById(id);
+            // get the id from the standard name
+            var id = _timeZoneData.Value.Values.First(tzi => tzi.StandardName == name);
+
+            return FindSystemTimeZoneById(id.Name);
         }
 
         private bool Equals(TimeZoneInfoEx other)

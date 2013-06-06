@@ -26,13 +26,14 @@ TimeZoneInfoEx::TimeZoneInfoEx(DYNAMIC_TIME_ZONE_INFORMATION tz) : _source(tz)
 	BaseUtcOffset = ts;
 }
 
-String^ TimeZoneInfoEx::GetLocalTimeId()
+String^ TimeZoneInfoEx::GetLocalTimeStandardName()
 {
 	DYNAMIC_TIME_ZONE_INFORMATION tz;
 	auto result = GetDynamicTimeZoneInformation(&tz);
 	if(result == 0 || result == 1 || result == 2)
 	{
-		return ref new String(tz.TimeZoneKeyName);
+		auto str = ref new String(tz.StandardName);
+		return str;
 	}
 
 	auto error = GetLastError();

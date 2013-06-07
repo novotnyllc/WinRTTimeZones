@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-    <metadata>
+    <metadata minClientVersion="2.5">
         <id>WinRTTimeZones</id>
         <version>1.0-beta2</version>
         <title>Time Zone Conversion for Windows Runtime and PCL</title>
@@ -15,7 +15,7 @@ Supported Platforms: WinRT, WinStore, WP8, .NET4.5</description>
         <summary />
         <releaseNotes />
         <tags>WinRT TimeZone PCL WP8</tags>
-    </metadata>
+      </metadata>
     <files>
         <file src="build\Mixed Platforms\Release\TimeZones.NetFx\TimeZones.dll" target="lib\net45\TimeZones.dll" />
         <file src="build\Mixed Platforms\Release\TimeZones.NetFx\TimeZones.NetFx.dll" target="lib\net45\TimeZones.NetFx.dll" />

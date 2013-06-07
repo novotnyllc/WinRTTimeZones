@@ -18,7 +18,7 @@
                 <Link>TimeZones.WP8.Native.dll</Link>
                 <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             </Content>            
-            <Reference Include="$(MSBuildThisFileDirectory)..\lib\native\WP8\x86\TimeZones.WP8.dll">
+            <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\WP8\x86\TimeZones.WP8.dll">
                 <Name>TimeZones.WP8</Name>
                 <Private>true</Private>
             </Reference>
@@ -33,7 +33,7 @@
                 <Link>TimeZones.WP8.Native.dll</Link>
                 <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             </Content>
-            <Reference Include="$(MSBuildThisFileDirectory)..\lib\native\WP8\ARM\TimeZones.WP8.dll">
+            <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\WP8\ARM\TimeZones.WP8.dll">
                 <Name>TimeZones.WP8</Name>
                 <Private>true</Private>
             </Reference>

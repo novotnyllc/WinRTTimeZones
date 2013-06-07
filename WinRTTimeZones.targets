@@ -9,7 +9,7 @@
     </Target>
     <Target Name="InjectReference" BeforeTargets="ResolveAssemblyReferences" Condition=" ('$(AppTargetFxGreaterThanWP80)' == 'true')  AND ('$(DesignTimeBuild)' != 'true') ">
         <ItemGroup Condition=" '$(Platform)' == 'x86' ">
-            <Reference Include="$(MSBuildThisFileDirectory)..\lib\native\WP8\x86\TimeZones.WP8.Native.winmd">
+            <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\WP8\x86\TimeZones.WP8.Native.winmd">
                 <Implementation>TimeZones.WP8.Native.dll</Implementation>
                 <Name>TimeZones.WP8.Native</Name>
                 <Private>true</Private>

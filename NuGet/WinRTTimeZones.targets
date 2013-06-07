@@ -9,31 +9,31 @@
     </Target>
     <Target Name="InjectReference" BeforeTargets="ResolveAssemblyReferences" Condition=" ('$(AppTargetFxGreaterThanWP80)' == 'true')  AND ('$(DesignTimeBuild)' != 'true') ">
         <ItemGroup Condition=" '$(Platform)' == 'x86' ">
-            <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\WP8\x86\TimeZones.WP8.Native.winmd">
+            <Reference Include="$(MSBuildThisFileDirectory)..\lib\native\WP8\x86\TimeZones.WP8.Native.winmd">
                 <Implementation>TimeZones.WP8.Native.dll</Implementation>
                 <Name>TimeZones.WP8.Native</Name>
                 <Private>true</Private>
             </Reference>
-            <Content Include="$(MSBuildThisFileDirectory)..\..\lib\native\WP8\x86\TimeZones.WP8.Native.dll">
+            <Content Include="$(MSBuildThisFileDirectory)..\lib\native\WP8\x86\TimeZones.WP8.Native.dll">
                 <Link>TimeZones.WP8.Native.dll</Link>
                 <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             </Content>            
-            <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\WP8\x86\TimeZones.WP8.dll">
+            <Reference Include="$(MSBuildThisFileDirectory)..\lib\native\WP8\x86\TimeZones.WP8.dll">
                 <Name>TimeZones.WP8</Name>
                 <Private>true</Private>
             </Reference>
         </ItemGroup>
         <ItemGroup Condition=" '$(Platform)' == 'ARM' ">
-            <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\WP8\ARM\TimeZones.WP8.Native.winmd">
+            <Reference Include="$(MSBuildThisFileDirectory)..\lib\native\WP8\ARM\TimeZones.WP8.Native.winmd">
                 <Implementation>TimeZones.WP8.Native.dll</Implementation>
                 <Name>TimeZones.WP8.Native</Name>
                 <Private>true</Private>
             </Reference>
-            <Content Include="$(MSBuildThisFileDirectory)..\..\lib\native\WP8\ARM\TimeZones.WP8.Native.dll">
+            <Content Include="$(MSBuildThisFileDirectory)..\lib\native\WP8\ARM\TimeZones.WP8.Native.dll">
                 <Link>TimeZones.WP8.Native.dll</Link>
                 <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             </Content>
-            <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\WP8\ARM\TimeZones.WP8.dll">
+            <Reference Include="$(MSBuildThisFileDirectory)..\lib\native\WP8\ARM\TimeZones.WP8.dll">
                 <Name>TimeZones.WP8</Name>
                 <Private>true</Private>
             </Reference>

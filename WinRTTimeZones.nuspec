@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata minClientVersion="2.5">
         <id>WinRTTimeZones</id>
-        <version>1.0-beta2</version>
+        <version>1.0-beta3</version>
         <title>Time Zone Conversion for Windows Runtime and PCL</title>
         <authors>Oren Novotny</authors>
         <owners>onovotny</owners>
@@ -68,7 +68,10 @@ Supported Platforms: WinRT, WinStore, WP8, .NET4.5</description>
         <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.NetCore.dll" target="WinRT\TimeZones.NetCore.dll" />
         <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.dll" target="WinRT\TimeZones.dll" />
         
-        <file src="WinRTTimeZones.targets" target="build\wp8\WinRTTimeZones.targets" />
+        <file src="NuGet\WinRTTimeZones.targets" target="tools\WinRTTimeZones.targets" />
+        <file src="NuGet\Install.ps1" target="tools\Install.ps1" />
+        <file src="NuGet\Uninstall.ps1" target="tools\Uninstall.ps1" />
+        
         <file src="**\*.cs;**\*.h;**\.cpp" target="src" exclude="_ReSharper.*\**\*.*;packages\**\*.*;**\Debug\**\*.*" />
     </files>
 </package>

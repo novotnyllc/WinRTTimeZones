@@ -31,6 +31,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0982FD7B-E930-4150-99AB-D367C77F31CC}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+		WinRTTimeZones.nuspec = WinRTTimeZones.nuspec
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeZones.WP8.Tests", "TimeZones.WP8.Tests\TimeZones.WP8.Tests.csproj", "{9CD50CDE-8C69-44AB-A7A2-374054EE6C2D}"

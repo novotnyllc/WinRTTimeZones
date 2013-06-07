@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata minClientVersion="2.5">
         <id>WinRTTimeZones</id>
-        <version>1.0-beta3</version>
+        <version>1.0</version>
         <title>Time Zone Conversion for Windows Runtime and PCL</title>
         <authors>Oren Novotny</authors>
         <owners>onovotny</owners>
@@ -13,7 +13,7 @@
 
 Supported Platforms: WinRT, WinStore, WP8, .NET4.5</description>
         <summary />
-        <releaseNotes />
+      <releaseNotes />
         <tags>WinRT TimeZone PCL WP8</tags>
       </metadata>
     <files>

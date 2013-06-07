@@ -32,10 +32,15 @@ There's a single entry point for use:
 The main APIs are in the _TimeZoneService_ class:
 	
 	/// <summary>
-	/// All available time zones
+	/// All available time zone Id's
 	/// </summary>
 	public static IReadOnlyList<string> SystemTimeZoneIds
     
+	/// <summary>
+	/// All available time zones
+	/// </summary>
+	public static IReadOnlyList<ITimeZoneEx> AllTimeZones
+
 	/// <summary>
     /// Gets a TimeZoneEx by id.
     /// </summary>

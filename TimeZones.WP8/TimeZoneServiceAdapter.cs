@@ -31,6 +31,11 @@ namespace TimeZones
             }
         }
 
+        public IEnumerable<ITimeZoneEx> GetAllTimeZones()
+        {
+            return TimeZoneInfoEx.All.Select(tz => new TimeZoneEx(tz));
+        }
+
 
         [DebuggerDisplay("Id = {Id}, BaseUtcOffset = {BaseUtcOffset}")]
         private class TimeZoneEx : ITimeZoneEx, IEquatable<TimeZoneEx>, IEquatable<ITimeZoneEx>

@@ -27,6 +27,12 @@ namespace TimeZones
         /// The Local Time Zone
         /// </summary>
         ITimeZoneEx Local { get; }
+
+        /// <summary>
+        /// All Time Zones
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<ITimeZoneEx> GetAllTimeZones(); 
     }
 
     /// <summary>

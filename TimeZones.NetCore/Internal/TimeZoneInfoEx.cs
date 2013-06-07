@@ -40,6 +40,14 @@ namespace TimeZones.Internal
             get { return _timeZones.Value; }
         }
 
+        public static IEnumerable<TimeZoneInfoEx> All
+        {
+            get
+            {
+                return _timeZoneData.Value.Values;
+            }
+        }
+
         /// <summary>
         ///     Invariant name such as "Eastern Standard Time"
         /// </summary>

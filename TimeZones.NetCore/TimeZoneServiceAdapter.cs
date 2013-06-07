@@ -20,10 +20,18 @@ namespace TimeZones
             return new TimeZoneEx(TimeZoneInfoEx.FindSystemTimeZoneById(id));
         }
 
+        
+
         public ITimeZoneEx Local
         {
             get { return new TimeZoneEx(TimeZoneInfoEx.GetLocalTimeZone()); }
         }
+
+        public IEnumerable<ITimeZoneEx> GetAllTimeZones()
+        {
+            return TimeZoneInfoEx.All.Select(tz => new TimeZoneEx(tz));
+        }
+
 
         [DebuggerDisplay("Id = {Id}, BaseUtcOffset = {BaseUtcOffset}")]
         private class TimeZoneEx : ITimeZoneEx, IEquatable<TimeZoneEx>, IEquatable<ITimeZoneEx>

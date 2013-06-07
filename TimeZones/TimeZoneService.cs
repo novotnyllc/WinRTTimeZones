@@ -16,6 +16,8 @@ namespace TimeZones
 
         private static readonly Lazy<ITimeZoneEx> _utcTimeZone = new Lazy<ITimeZoneEx>(() => _service.FindSystemTimeZoneById("UTC"));
 
+        private static readonly Lazy<IReadOnlyList<ITimeZoneEx>> _allTimeZones = new Lazy<IReadOnlyList<ITimeZoneEx>>(() => _service.GetAllTimeZones().ToList());
+
         /// <summary>
         /// UTC Time Zone
         /// </summary>
@@ -42,6 +44,16 @@ namespace TimeZones
         {
             get { return _service.SystemTimeZoneIds; }
         }
+
+
+        /// <summary>
+        /// All Time Zones 
+        /// </summary>
+        public static IReadOnlyList<ITimeZoneEx> AllTimeZones
+        {
+            get { return _allTimeZones.Value; }
+        }
+
 
         /// <summary>
         /// Gets a TimeZoneEx by id.

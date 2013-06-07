@@ -27,6 +27,12 @@ namespace WinRTTimeZones.Tests
         }
 
         [TestMethod]
+        public void AllTimeZonesMatchesSystemIds()
+        {
+            TimeZoneService.AllTimeZones.Select(tz => tz.Id).ShouldAllBeEquivalentTo(TimeZoneService.SystemTimeZoneIds);
+        }
+
+        [TestMethod]
         public void LocalTimeZoneTest()
         {
             var tz = TimeZoneService.Local;

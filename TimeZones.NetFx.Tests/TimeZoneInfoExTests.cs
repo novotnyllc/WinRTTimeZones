@@ -91,6 +91,11 @@ namespace WinRTTimeZones.Tests
             result.Offset.Should().Be(TimeSpan.FromHours(-5));
         }
 
+        [TestMethod]
+        public void AllTimeZonesMatchesSystemIds()
+        {
+            TimeZoneService.AllTimeZones.Select(tz => tz.Id).ShouldAllBeEquivalentTo(TimeZoneService.SystemTimeZoneIds);
+        }
 
         [TestMethod]
         public void SpecifyTimeZoneStandardTest()

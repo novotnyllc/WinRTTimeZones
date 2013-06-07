@@ -11,6 +11,30 @@ namespace WinRTTimeZones.Tests
     [TestClass]
     public class TimeZoneInfoExTests
     {
+
+        [TestMethod]
+        public void AllTimeZonesMatchesSystemIds()
+        {
+            TimeZoneService.AllTimeZones.Select(tz => tz.Id).ShouldAllBeEquivalentTo(TimeZoneService.SystemTimeZoneIds);
+        }
+
+        [TestMethod]
+        public void UtcTest()
+        {
+            var tz = TimeZoneService.Utc;
+
+            Assert.AreEqual("UTC", tz.Id);
+            Assert.AreEqual(new TimeSpan(0), tz.BaseUtcOffset);
+        }
+
+        [TestMethod]
+        public void LocalTimeZoneTest()
+        {
+            var tz = TimeZoneService.Local;
+
+            Assert.AreEqual("Eastern Standard Time", tz.Id);
+        }
+
         [TestMethod]
         public void GetEasternDateTest()
         {

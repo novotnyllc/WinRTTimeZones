@@ -134,6 +134,22 @@ namespace WinRTTimeZones.Tests
             local.Hour.Should().Be(7);
             local.Offset.Should().Be(TimeSpan.FromHours(-5)); // CDT
         }
+
+        [TestMethod]
+        public void ConvertTimeDaylightTimeToHawaiiTest()
+        {
+            var dt = new DateTime(1990, 7, 1, 12, 0, 0, DateTimeKind.Utc);
+
+            
+            // -10
+            var tz = TimeZoneService.FindSystemTimeZoneById("Hawaiian Standard Time");
+            
+            var local = tz.ConvertTime(dt);
+
+            local.Hour.Should().Be(2);
+            local.Offset.Should().Be(TimeSpan.FromHours(-10)); // MST
+        }
+
         [TestMethod]
         public void ConvertTimeToMountain2007Test()
         {

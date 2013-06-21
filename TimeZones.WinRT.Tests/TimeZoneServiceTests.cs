@@ -49,11 +49,25 @@ namespace WinRTTimeZones.Tests
 
             // -10
             var tz = TimeZoneService.FindSystemTimeZoneById("Hawaiian Standard Time");
-
+            
             var local = tz.ConvertTime(dt);
 
             local.Hour.Should().Be(2);
-            local.Offset.Should().Be(TimeSpan.FromHours(-10)); // MST
+            local.Offset.Should().Be(TimeSpan.FromHours(-10)); // HST
+        }
+
+        [TestMethod]
+        public void ConvertTimeDaylightTimeToArizonaTest()
+        {
+            var dt = new DateTime(1990, 7, 1, 12, 0, 0, DateTimeKind.Utc);
+
+            // -7
+            var tz = TimeZoneService.FindSystemTimeZoneById("US Mountain Standard Time");
+            
+            var local = tz.ConvertTime(dt);
+
+            local.Hour.Should().Be(5);
+            local.Offset.Should().Be(TimeSpan.FromHours(-7)); // MST
         }
 
         [TestMethod]

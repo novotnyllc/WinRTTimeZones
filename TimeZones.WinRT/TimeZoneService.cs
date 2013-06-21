@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -97,7 +98,8 @@ namespace TimeZones.WinRT
 
             return new DateTimeOffset(DateTime.SpecifyKind(dateAsUtc, DateTimeKind.Unspecified), asLocal.Offset);
         }
-
+        
+        [DebuggerDisplay("Id = {Id}, BaseUtcOffset = {BaseUtcOffset}")]
         private class TimeZoneEx : ITimeZoneEx
         {
             private readonly ITimeZonePcl _wrapped;

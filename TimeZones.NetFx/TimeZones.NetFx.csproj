@@ -7,8 +7,8 @@
     <ProjectGuid>{A39FC3B3-685B-48EB-BABC-44670F9D59DA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TimeZones.NetFx</RootNamespace>
-    <AssemblyName>TimeZones.NetFx</AssemblyName>
+    <RootNamespace>TimeZones</RootNamespace>
+    <AssemblyName>TimeZones.Platform</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

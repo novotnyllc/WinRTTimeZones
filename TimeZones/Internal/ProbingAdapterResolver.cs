@@ -13,23 +13,20 @@ namespace TimeZones.Internal
     // looking for concrete types in platform-specific assemblies, such as Portable.Silverlight.
     internal class ProbingAdapterResolver : IAdapterResolver
     {
-        private readonly string[] _platformNames;
         private readonly Func<AssemblyName, Assembly> _assemblyLoader;
         private readonly object _lock = new object();
         private readonly Dictionary<Type, object> _adapters = new Dictionary<Type, object>();
         private Assembly _assembly;
 
-        public ProbingAdapterResolver(params string[] platformNames)
-            : this(Assembly.Load, platformNames)
+        public ProbingAdapterResolver()
+            : this(Assembly.Load)
         {
         }
 
-        public ProbingAdapterResolver(Func<AssemblyName, Assembly> assemblyLoader, params string[] platformNames)
+        public ProbingAdapterResolver(Func<AssemblyName, Assembly> assemblyLoader)
         {
-            Debug.Assert(platformNames != null);
             Debug.Assert(assemblyLoader != null);
 
-            _platformNames = platformNames;
             _assemblyLoader = assemblyLoader;
         }
 
@@ -101,22 +98,11 @@ namespace TimeZones.Internal
             return _assembly;
         }
 
+
         private Assembly ProbeForPlatformSpecificAssembly()
         {
-            foreach (string platformName in _platformNames)
-            {
-                Assembly assembly = ProbeForPlatformSpecificAssembly(platformName);
-                if (assembly != null)
-                    return assembly;
-            }
-
-            return null;
-        }
-
-        private Assembly ProbeForPlatformSpecificAssembly(string platformName)
-        {
             AssemblyName assemblyName = new AssemblyName(GetType().GetTypeInfo().Assembly.FullName);
-            assemblyName.Name = "TimeZones." + platformName;    // for TimeZones, MetroLog.NetCore
+            assemblyName.Name = "TimeZones.Platform";    
 
             try
             {

@@ -18,6 +18,4 @@ using System.Runtime.InteropServices;
 
 
 [assembly: InternalsVisibleTo("TimeZones.WinRT")]
-[assembly: InternalsVisibleTo("TimeZones.NetCore")]
-[assembly: InternalsVisibleTo("TimeZones.WP8")]
-[assembly: InternalsVisibleTo("TimeZones.NetFX")]
+[assembly: InternalsVisibleTo("TimeZones.Platform")]

@@ -9,8 +9,7 @@ namespace TimeZones.Internal
     // Enables types within PclContrib to use platform-specific features in a platform-agnostic way
     internal static class PlatformAdapter
     {
-        private static readonly string[] KnownPlatformNames = new[] { "NetFx", "NetCore", "WP8"};
-        private static IAdapterResolver _resolver = new ProbingAdapterResolver(KnownPlatformNames);
+        private static IAdapterResolver _resolver = new ProbingAdapterResolver();
 
         public static T Resolve<T>(bool throwIfNotFound = true)
         {

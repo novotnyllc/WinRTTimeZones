@@ -9,8 +9,8 @@
     <ProjectGuid>{5EC417F5-FB26-4F6D-978F-4AF79EF268AF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TimeZones.NetCore</RootNamespace>
-    <AssemblyName>TimeZones.NetCore</AssemblyName>
+    <RootNamespace>TimeZones</RootNamespace>
+    <AssemblyName>TimeZones.Platform</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

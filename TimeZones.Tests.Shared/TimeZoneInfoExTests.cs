@@ -3,19 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentAssertions;
+
+#if OLD_MSTEST
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+#else
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#endif
+
+#if WINRT_TESTS
+using TimeZones.WinRT;
+#else
 using TimeZones;
+#endif
 
 namespace WinRTTimeZones.Tests
 {
     [TestClass]
     public class TimeZoneInfoExTests
     {
-
         [TestMethod]
-        public void AllTimeZonesMatchesSystemIds()
+        public void GetEasternDateTest()
         {
-            TimeZoneService.AllTimeZones.Select(tz => tz.Id).ShouldAllBeEquivalentTo(TimeZoneService.SystemTimeZoneIds);
+            TimeZoneService.SystemTimeZoneIds.Should()
+                           .Contain("Eastern Standard Time");
         }
 
         [TestMethod]
@@ -25,6 +35,13 @@ namespace WinRTTimeZones.Tests
 
             Assert.AreEqual("UTC", tz.Id);
             Assert.AreEqual(new TimeSpan(0), tz.BaseUtcOffset);
+        }
+
+        [TestMethod]
+        public void AllTimeZonesMatchesSystemIds()
+        {
+            TimeZoneService.AllTimeZones.Select(tz => tz.Id)
+                           .ShouldAllBeEquivalentTo(TimeZoneService.SystemTimeZoneIds);
         }
 
         [TestMethod]
@@ -47,14 +64,26 @@ namespace WinRTTimeZones.Tests
 
             var local = tz.ConvertTime(dt);
 
-            local.Hour.Should().Be(2);
-            local.Offset.Should().Be(TimeSpan.FromHours(-10)); // MST
+            local.Hour.Should()
+                 .Be(2);
+            local.Offset.Should()
+                 .Be(TimeSpan.FromHours(-10)); // HST
         }
 
         [TestMethod]
-        public void GetEasternDateTest()
+        public void ConvertTimeDaylightTimeToArizonaTest()
         {
-            TimeZoneService.SystemTimeZoneIds.Should().Contain("Eastern Standard Time");
+            var dt = new DateTime(1990, 7, 1, 12, 0, 0, DateTimeKind.Utc);
+
+            // -7
+            var tz = TimeZoneService.FindSystemTimeZoneById("US Mountain Standard Time");
+
+            var local = tz.ConvertTime(dt);
+
+            local.Hour.Should()
+                 .Be(5);
+            local.Offset.Should()
+                 .Be(TimeSpan.FromHours(-7)); // MST
         }
 
         [TestMethod]
@@ -66,15 +95,33 @@ namespace WinRTTimeZones.Tests
             var local = TimeZoneService.ConvertTimeBySystemTimeZoneId(dt, "Mountain Standard Time");
 
 
-            local.Hour.Should().Be(5);
-            local.Offset.Should().Be(TimeSpan.FromHours(-7));
+            local.Hour.Should()
+                 .Be(5);
+            local.Offset.Should()
+                 .Be(TimeSpan.FromHours(-7));
+        }
+
+        [TestMethod]
+        public void ConvertTimeToMountain2012Test()
+        {
+            var dt = new DateTime(2012, 11, 1, 12, 0, 0, DateTimeKind.Utc);
+
+            // -7 hours
+            var local = TimeZoneService.ConvertTimeBySystemTimeZoneId(dt, "Mountain Standard Time");
+
+
+            local.Hour.Should()
+                 .Be(6);
+            local.Offset.Should()
+                 .Be(TimeSpan.FromHours(-6)); // Daylight time in 2012
         }
 
         [TestMethod]
         public void BaseUtcOffsetShouldBeCorrect()
         {
             var tz = TimeZoneService.FindSystemTimeZoneById("Central Standard Time");
-            tz.BaseUtcOffset.Should().Be(TimeSpan.FromHours(-6));
+            tz.BaseUtcOffset.Should()
+              .Be(TimeSpan.FromHours(-6));
         }
 
         [TestMethod]
@@ -85,8 +132,10 @@ namespace WinRTTimeZones.Tests
 
             var result = TimeZoneService.SpecifyTimeZone(dt, tz);
 
-            result.Hour.Should().Be(12); // same
-            result.Offset.Should().Be(TimeSpan.FromHours(-5));
+            result.Hour.Should()
+                  .Be(12); // same
+            result.Offset.Should()
+                  .Be(TimeSpan.FromHours(-5));
         }
 
         [TestMethod]
@@ -97,8 +146,10 @@ namespace WinRTTimeZones.Tests
 
             var result = TimeZoneService.SpecifyTimeZone(dt, tz);
 
-            result.Hour.Should().Be(12); // same
-            result.Offset.Should().Be(TimeSpan.FromHours(-5));
+            result.Hour.Should()
+                  .Be(12); // same
+            result.Offset.Should()
+                  .Be(TimeSpan.FromHours(-5));
         }
 
 
@@ -110,8 +161,10 @@ namespace WinRTTimeZones.Tests
 
             var result = TimeZoneService.SpecifyTimeZone(dt, tz);
 
-            result.Hour.Should().Be(12); // same
-            result.Offset.Should().Be(TimeSpan.FromHours(-5));
+            result.Hour.Should()
+                  .Be(12); // same
+            result.Offset.Should()
+                  .Be(TimeSpan.FromHours(-5));
         }
 
         [TestMethod]
@@ -122,9 +175,12 @@ namespace WinRTTimeZones.Tests
 
             var result = TimeZoneService.SpecifyTimeZone(dt, tz);
 
-            result.Hour.Should().Be(12); // same
-            result.Offset.Should().Be(TimeSpan.FromHours(-6));
+            result.Hour.Should()
+                  .Be(12); // same
+            result.Offset.Should()
+                  .Be(TimeSpan.FromHours(-6));
         }
+
 
 
         [TestMethod]
@@ -137,9 +193,12 @@ namespace WinRTTimeZones.Tests
             var local = tz.ConvertTime(dt);
 
 
-            local.Hour.Should().Be(7);
-            local.Offset.Should().Be(TimeSpan.FromHours(-5)); // CDT
+            local.Hour.Should()
+                 .Be(7);
+            local.Offset.Should()
+                 .Be(TimeSpan.FromHours(-5)); // CDT
         }
+
         [TestMethod]
         public void ConvertTimeToMountain2007Test()
         {
@@ -149,21 +208,10 @@ namespace WinRTTimeZones.Tests
             var local = TimeZoneService.ConvertTimeBySystemTimeZoneId(dt, "Mountain Standard Time");
 
 
-            local.Hour.Should().Be(6);
-            local.Offset.Should().Be(TimeSpan.FromHours(-6)); // Daylight time in 2007
-        }
-
-        [TestMethod]
-        public void ConvertTimeToMountain2012Test()
-        {
-            var dt = new DateTime(2012, 11, 1, 12, 0, 0, DateTimeKind.Utc);
-
-            // -7 hours
-            var local = TimeZoneService.ConvertTimeBySystemTimeZoneId(dt, "Mountain Standard Time");
-
-
-            local.Hour.Should().Be(6);
-            local.Offset.Should().Be(TimeSpan.FromHours(-6)); // Daylight time in 2012
+            local.Hour.Should()
+                 .Be(6);
+            local.Offset.Should()
+                 .Be(TimeSpan.FromHours(-6)); // Daylight time in 2007
         }
 
         [TestMethod]
@@ -175,9 +223,12 @@ namespace WinRTTimeZones.Tests
             var local = TimeZoneService.ConvertTimeBySystemTimeZoneId(dt, "Mountain Standard Time");
 
 
-            local.Day.Should().Be(15);
-            local.Hour.Should().Be(19);
-            local.Offset.Should().Be(TimeSpan.FromHours(-6));
+            local.Day.Should()
+                 .Be(15);
+            local.Hour.Should()
+                 .Be(19);
+            local.Offset.Should()
+                 .Be(TimeSpan.FromHours(-6));
         }
 
         [TestMethod]
@@ -188,11 +239,16 @@ namespace WinRTTimeZones.Tests
             // -7 hours
             var local = TimeZoneService.ConvertTimeBySystemTimeZoneId(dt, "Mountain Standard Time");
 
-            local.Year.Should().Be(2006);
-            local.Month.Should().Be(12);
-            local.Day.Should().Be(31);
-            local.Hour.Should().Be(18);
-            local.Offset.Should().Be(TimeSpan.FromHours(-7));
+            local.Year.Should()
+                 .Be(2006);
+            local.Month.Should()
+                 .Be(12);
+            local.Day.Should()
+                 .Be(31);
+            local.Hour.Should()
+                 .Be(18);
+            local.Offset.Should()
+                 .Be(TimeSpan.FromHours(-7));
         }
 
         [TestMethod]
@@ -204,9 +260,12 @@ namespace WinRTTimeZones.Tests
             var local = TimeZoneService.ConvertTimeBySystemTimeZoneId(dt, "Tokyo Standard Time");
 
 
-            local.Day.Should().Be(16);
-            local.Hour.Should().Be(8);
-            local.Offset.Should().Be(TimeSpan.FromHours(9));
+            local.Day.Should()
+                 .Be(16);
+            local.Hour.Should()
+                 .Be(8);
+            local.Offset.Should()
+                 .Be(TimeSpan.FromHours(9));
         }
 
         [TestMethod]
@@ -217,11 +276,16 @@ namespace WinRTTimeZones.Tests
             // +9 hours
             var local = TimeZoneService.ConvertTimeBySystemTimeZoneId(dt, "Tokyo Standard Time");
 
-            local.Year.Should().Be(2007);
-            local.Day.Should().Be(1);
-            local.Month.Should().Be(1);
-            local.Hour.Should().Be(8);
-            local.Offset.Should().Be(TimeSpan.FromHours(9));
+            local.Year.Should()
+                 .Be(2007);
+            local.Day.Should()
+                 .Be(1);
+            local.Month.Should()
+                 .Be(1);
+            local.Hour.Should()
+                 .Be(8);
+            local.Offset.Should()
+                 .Be(TimeSpan.FromHours(9));
         }
     }
 }

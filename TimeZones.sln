@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30324.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeZones.WinRT", "TimeZones.WinRT\TimeZones.WinRT.csproj", "{2B1D6F9F-33DB-4450-81F4-9BD19EFECF90}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeZones.WinRT.Tests", "TimeZones.WinRT.Tests\TimeZones.WinRT.Tests.csproj", "{4C5D9FB0-5422-4B38-94F4-E8E7737B986B}"
@@ -38,7 +40,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeZones.WP8.Tests", "Time
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneAppWithTimeZones", "PhoneAppWithTimeZones\PhoneAppWithTimeZones.csproj", "{882113E1-9873-46FF-A3C4-6E3BB5FFBA65}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TimeZones.Tests.Shared", "TimeZones.Tests.Shared\TimeZones.Tests.Shared.shproj", "{B8B60DF6-9B90-48B3-B516-F8DD5F141578}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		TimeZones.Tests.Shared\TimeZones.Tests.Shared.projitems*{210d6f5d-7f42-4059-8f61-9195468d738d}*SharedItemsImports = 4
+		TimeZones.Tests.Shared\TimeZones.Tests.Shared.projitems*{b8b60df6-9b90-48b3-b516-f8dd5f141578}*SharedItemsImports = 13
+		TimeZones.Tests.Shared\TimeZones.Tests.Shared.projitems*{4c5d9fb0-5422-4b38-94f4-e8e7737b986b}*SharedItemsImports = 4
+		TimeZones.Tests.Shared\TimeZones.Tests.Shared.projitems*{e2d36f47-1d46-48a3-8269-e6134f22c9f9}*SharedItemsImports = 4
+		TimeZones.Tests.Shared\TimeZones.Tests.Shared.projitems*{9cd50cde-8c69-44ab-a7a2-374054ee6c2d}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -185,10 +196,11 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{E2D36F47-1D46-48A3-8269-E6134F22C9F9} = {BD58347C-6AE7-417C-A4C0-6075ACFBDD9F}
 		{4C5D9FB0-5422-4B38-94F4-E8E7737B986B} = {BD58347C-6AE7-417C-A4C0-6075ACFBDD9F}
+		{E2D36F47-1D46-48A3-8269-E6134F22C9F9} = {BD58347C-6AE7-417C-A4C0-6075ACFBDD9F}
 		{210D6F5D-7F42-4059-8F61-9195468D738D} = {BD58347C-6AE7-417C-A4C0-6075ACFBDD9F}
 		{9CD50CDE-8C69-44AB-A7A2-374054EE6C2D} = {BD58347C-6AE7-417C-A4C0-6075ACFBDD9F}
 		{882113E1-9873-46FF-A3C4-6E3BB5FFBA65} = {BD58347C-6AE7-417C-A4C0-6075ACFBDD9F}
+		{B8B60DF6-9B90-48B3-B516-F8DD5F141578} = {BD58347C-6AE7-417C-A4C0-6075ACFBDD9F}
 	EndGlobalSection
 EndGlobal

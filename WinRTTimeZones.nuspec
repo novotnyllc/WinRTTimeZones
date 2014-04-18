@@ -18,15 +18,15 @@ Supported Platforms: WinRT, WinStore, WP8, .NET4.5</description>
       </metadata>
     <files>
         <file src="build\Mixed Platforms\Release\TimeZones.NetFx\TimeZones.dll" target="lib\net45\TimeZones.dll" />
-        <file src="build\Mixed Platforms\Release\TimeZones.NetFx\TimeZones.NetFx.dll" target="lib\net45\TimeZones.NetFx.dll" />
-        <file src="build\Mixed Platforms\Release\TimeZones.NetFx\TimeZones.NetFx.pdb" target="lib\net45\TimeZones.NetFx.pdb" />
+        <file src="build\Mixed Platforms\Release\TimeZones.NetFx\TimeZones.Platform.dll" target="lib\net45\TimeZones.Platform.dll" />
+        <file src="build\Mixed Platforms\Release\TimeZones.NetFx\TimeZones.Platform.pdb" target="lib\net45\TimeZones.Platform.pdb" />
         <file src="build\Mixed Platforms\Release\TimeZones.NetFx\TimeZones.pdb" target="lib\net45\TimeZones.pdb" />
         <file src="build\Mixed Platforms\Release\TimeZones.NetFx\TimeZones.xml" target="lib\net45\TimeZones.xml" />
         
         <file src="build\Mixed Platforms\Release\TimeZones.NetCore\TimeZones.dll" target="lib\netcore45\TimeZones.dll" />
-        <file src="build\Mixed Platforms\Release\TimeZones.NetCore\TimeZones.NetCore.dll" target="lib\netcore45\TimeZones.NetCore.dll" />
-        <file src="build\Mixed Platforms\Release\TimeZones.NetCore\TimeZones.NetCore.pdb" target="lib\netcore45\TimeZones.NetCore.pdb" />
-        <file src="build\Mixed Platforms\Release\TimeZones.NetCore\TimeZones.NetCore.pri" target="lib\netcore45\TimeZones.NetCore.pri" />
+        <file src="build\Mixed Platforms\Release\TimeZones.NetCore\TimeZones.Platform.dll" target="lib\netcore45\TimeZones.Platform.dll" />
+        <file src="build\Mixed Platforms\Release\TimeZones.NetCore\TimeZones.Platform.pdb" target="lib\netcore45\TimeZones.Platform.pdb" />
+        <file src="build\Mixed Platforms\Release\TimeZones.NetCore\TimeZones.Platform.pri" target="lib\netcore45\TimeZones.Platform.pri" />
         <file src="build\Mixed Platforms\Release\TimeZones.NetCore\TimeZones.pdb" target="lib\netcore45\TimeZones.pdb" />
         <file src="build\Mixed Platforms\Release\TimeZones.NetCore\TimeZones.xml" target="lib\netcore45\TimeZones.xml" />
         
@@ -45,32 +45,34 @@ Supported Platforms: WinRT, WinStore, WP8, .NET4.5</description>
         <file src="build\Mixed Platforms\Release\TimeZones.WP8.Native\TimeZones.WP8.Native.pdb" target="lib\native\wp8\x86\TimeZones.WP8.Native.pdb" />
         <file src="build\Mixed Platforms\Release\TimeZones.WP8.Native\TimeZones.WP8.Native.dll" target="lib\native\wp8\x86\TimeZones.WP8.Native.dll" />
         <file src="build\Mixed Platforms\Release\TimeZones.WP8.Native\TimeZones.WP8.Native.winmd" target="lib\native\wp8\x86\TimeZones.WP8.Native.winmd" />
-        <file src="build\Mixed Platforms\Release\TimeZones.WP8\TimeZones.WP8.pdb" target="lib\native\wp8\x86\TimeZones.WP8.pdb" />
-        <file src="build\Mixed Platforms\Release\TimeZones.WP8\TimeZones.WP8.dll" target="lib\native\wp8\x86\TimeZones.WP8.dll" />
+        <file src="build\Mixed Platforms\Release\TimeZones.WP8\TimeZones.Platform.pdb" target="lib\native\wp8\x86\TimeZones.Platform.pdb" />
+        <file src="build\Mixed Platforms\Release\TimeZones.WP8\TimeZones.Platform.dll" target="lib\native\wp8\x86\TimeZones.Platform.dll" />
         
         <!-- ARM -->
         <file src="build\ARM\Release\TimeZones.WP8.Native\TimeZones.WP8.Native.pdb" target="lib\native\wp8\ARM\TimeZones.WP8.Native.pdb" />
         <file src="build\ARM\Release\TimeZones.WP8.Native\TimeZones.WP8.Native.dll" target="lib\native\wp8\ARM\TimeZones.WP8.Native.dll" />
         <file src="build\ARM\Release\TimeZones.WP8.Native\TimeZones.WP8.Native.winmd" target="lib\native\wp8\ARM\TimeZones.WP8.Native.winmd" />
-        <file src="build\ARM\Release\TimeZones.WP8\TimeZones.WP8.pdb" target="lib\native\wp8\ARM\TimeZones.WP8.pdb" />
-        <file src="build\ARM\Release\TimeZones.WP8\TimeZones.WP8.dll" target="lib\native\wp8\ARM\TimeZones.WP8.dll" />
+        <file src="build\ARM\Release\TimeZones.WP8\TimeZones.Platform.pdb" target="lib\native\wp8\ARM\TimeZones.Platform.pdb" />
+        <file src="build\ARM\Release\TimeZones.WP8\TimeZones.Platform.dll" target="lib\native\wp8\ARM\TimeZones.Platform.dll" />
   
         
         <!-- WinStore files -->
-        <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.xml" target="WinRT\TimeZones.xml" />
-        <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.NetCore.pdb" target="WinRT\TimeZones.NetCore.pdb" />
-        <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.WinRT.xml" target="WinRT\TimeZones.WinRT.xml" />
-        <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.NetCore.pri" target="WinRT\TimeZones.NetCore.pri" />
         <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.pdb" target="WinRT\TimeZones.pdb" />
+        <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.xml" target="WinRT\TimeZones.xml" />
+        <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.Platform.pdb" target="WinRT\TimeZones.Platform.pdb" />
+        <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.Platform.pri" target="WinRT\TimeZones.Platform.pri" />
+        <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.Platform.dll" target="WinRT\TimeZones.Platform.dll" />
+        <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.WinRT.xml" target="WinRT\TimeZones.WinRT.xml" />
         <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.WinRT.pdb" target="WinRT\TimeZones.WinRT.pdb" />
         <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.WinRT.winmd" target="WinRT\TimeZones.WinRT.winmd" />
         <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.WinRT.pri" target="WinRT\TimeZones.WinRT.pri" />
-        <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.NetCore.dll" target="WinRT\TimeZones.NetCore.dll" />
+        
         <file src="build\Mixed Platforms\Release\TimeZones.WinRT\TimeZones.dll" target="WinRT\TimeZones.dll" />
         
-        <file src="NuGet\WinRTTimeZones.targets" target="tools\WinRTTimeZones.targets" />
-        <file src="NuGet\Install.ps1" target="tools\Install.ps1" />
-        <file src="NuGet\Uninstall.ps1" target="tools\Uninstall.ps1" />
+      <!-- Special build targets for WP8 -->
+        <file src="NuGet\WinRTTimeZones.targets" target="build\wp8\WinRTTimeZones.targets" />
+        <!--<file src="NuGet\Install.ps1" target="tools\Install.ps1" />
+        <file src="NuGet\Uninstall.ps1" target="tools\Uninstall.ps1" />-->
         
         <file src="**\*.cs;**\*.h;**\.cpp" target="src" exclude="_ReSharper.*\**\*.*;packages\**\*.*;**\Debug\**\*.*" />
     </files>

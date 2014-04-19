@@ -129,11 +129,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="FluentAssertions.WindowsPhone">
-      <HintPath>..\packages\FluentAssertions.2.0.1\lib\sl4-windowsphone71\FluentAssertions.WindowsPhone.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\TimeZones.WP8\TimeZones.WP8.csproj">
       <Project>{E7346BB7-4241-439E-A718-A6C6AE2369C2}</Project>
       <Name>TimeZones.WP8</Name>
@@ -145,6 +140,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="FluentAssertions.Core">
+      <HintPath>..\packages\FluentAssertions.3.0.0-alpha5\lib\wp8\FluentAssertions.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions.WindowsPhone">
+      <HintPath>..\packages\FluentAssertions.3.0.0-alpha5\lib\wp8\FluentAssertions.WindowsPhone.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="..\TimeZones.Tests.Shared\TimeZones.Tests.Shared.projitems" Label="Shared" Condition="Exists('..\TimeZones.Tests.Shared\TimeZones.Tests.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />

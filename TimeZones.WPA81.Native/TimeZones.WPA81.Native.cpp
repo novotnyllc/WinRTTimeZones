@@ -1,6 +1,6 @@
 ﻿// TimeZones.WPA81.Native.cpp
 #include "pch.h"
-#include "TimeZones.WP8.Native.h"
+#include "TimeZones.WPA81.Native.h"
 
 using namespace Windows;
 using namespace Platform;
@@ -10,7 +10,7 @@ using namespace Platform::Collections;
 
 namespace TimeZones
 {
-namespace WP8
+namespace WPA81
 {
 namespace Native
 {

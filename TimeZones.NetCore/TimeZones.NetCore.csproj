@@ -110,12 +110,12 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Internal\TimeZoneInfoEx.cs" />
-    <Compile Include="TimeZoneServiceAdapter.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>
+  <Import Project="..\TimeZones.WinRT.Shared\TimeZones.WinRT.Shared.projitems" Label="Shared" Condition="Exists('..\TimeZones.WinRT.Shared\TimeZones.WinRT.Shared.projitems')" />
+  <Import Project="..\TimeZones.WinRT.Shared\TimeZones.WinRT.Shared.projitems" Label="Shared" Condition="Exists('..\TimeZones.WinRT.Shared\TimeZones.WinRT.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,42 @@
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <AppTargetFxGreaterThanWPA81 Condition= "'$(TargetFrameworkIdentifier)' == 'WindowsPhoneApp' AND
+												 ($([System.Version]::Parse('$(TargetFrameworkVersion.TrimStart(`v`))').CompareTo( $([System.Version]::Parse('8.1')) )) &gt;= 0)">true</AppTargetFxGreaterThanWPA81>
+    </PropertyGroup>
+    <Target Name="PlatformCheck" BeforeTargets="BuildOnlySettings" Condition=" ('$(AppTargetFxGreaterThanWPA81)' == 'true')  AND ('$(DesignTimeBuild)' != 'true') ">
+        <Error Condition=" ('$(Platform)' != 'x86') AND ('$(Platform)' != 'ARM') " Text="$(MSBuildThisFileName) does not support the currently selected platform of '$(Platform)'. The supported platforms are 'x86' and 'ARM'." />
+    </Target>
+    <Target Name="InjectReference" BeforeTargets="ResolveAssemblyReferences" Condition=" ('$(AppTargetFxGreaterThanWPA81)' == 'true')  AND ('$(DesignTimeBuild)' != 'true') ">
+        <ItemGroup Condition=" '$(Platform)' == 'x86' ">
+            <Reference Include="$(MSBuildThisFileDirectory)..\lib\native\wpa81\x86\TimeZones.WPA81.Native.winmd">
+                <Implementation>TimeZones.WPA81.Native.dll</Implementation>
+                <Name>TimeZones.WPA81.Native</Name>
+                <Private>true</Private>
+            </Reference>
+            <Content Include="$(MSBuildThisFileDirectory)..\lib\native\wpa81\x86\TimeZones.WPA81.Native.dll">
+                <Link>TimeZones.WPA81.Native.dll</Link>
+                <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            </Content>            
+            <Reference Include="$(MSBuildThisFileDirectory)..\lib\native\wpa81\x86\TimeZones.Platform.dll">
+                <Name>TimeZones.Platform</Name>
+                <Private>true</Private>
+            </Reference>
+        </ItemGroup>
+        <ItemGroup Condition=" '$(Platform)' == 'ARM' ">
+            <Reference Include="$(MSBuildThisFileDirectory)..\lib\native\wpa81\ARM\TimeZones.WPA81.Native.winmd">
+                <Implementation>TimeZones.WPA81.Native.dll</Implementation>
+                <Name>TimeZones.WPA81.Native</Name>
+                <Private>true</Private>
+            </Reference>
+            <Content Include="$(MSBuildThisFileDirectory)..\lib\native\wpa81\ARM\TimeZones.WPA81.Native.dll">
+                <Link>TimeZones.WPA81.Native.dll</Link>
+                <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            </Content>
+            <Reference Include="$(MSBuildThisFileDirectory)..\lib\native\wpa81\ARM\TimeZones.Platform.dll">
+                <Name>TimeZones.Platform</Name>
+                <Private>true</Private>
+            </Reference>
+        </ItemGroup>
+    </Target>
+</Project>

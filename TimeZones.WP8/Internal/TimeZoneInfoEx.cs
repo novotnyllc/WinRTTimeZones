@@ -4,7 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+#if WINDOWS_PHONE_APP
+using TZI = TimeZones.WPA81.Native.TimeZoneInfoEx;
+#else
 using TZI = TimeZones.WP8.Native.TimeZoneInfoEx;
+#endif
 
 namespace TimeZones.Internal
 {

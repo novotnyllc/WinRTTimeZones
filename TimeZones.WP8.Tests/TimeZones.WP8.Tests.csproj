@@ -142,11 +142,13 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="FluentAssertions.Core">
-      <HintPath>..\packages\FluentAssertions.3.0.0-alpha5\lib\windowsphone8\FluentAssertions.Core.dll</HintPath>
+    <Reference Include="FluentAssertions.Core, Version=3.0.9999.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FluentAssertions.Local\wp8\FluentAssertions.Core.dll</HintPath>
     </Reference>
-    <Reference Include="FluentAssertions.WindowsPhone">
-      <HintPath>..\packages\FluentAssertions.3.0.0-alpha5\lib\windowsphone8\FluentAssertions.WindowsPhone.dll</HintPath>
+    <Reference Include="FluentAssertions.WindowsPhone, Version=3.0.9999.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FluentAssertions.Local\wp8\FluentAssertions.WindowsPhone.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="..\TimeZones.Tests.Shared\TimeZones.Tests.Shared.projitems" Label="Shared" Condition="Exists('..\TimeZones.Tests.Shared\TimeZones.Tests.Shared.projitems')" />

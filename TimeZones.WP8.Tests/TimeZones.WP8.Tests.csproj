@@ -143,10 +143,10 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions.Core">
-      <HintPath>..\packages\FluentAssertions.3.0.0-alpha5\lib\wp8\FluentAssertions.Core.dll</HintPath>
+      <HintPath>..\packages\FluentAssertions.3.0.0-alpha5\lib\windowsphone8\FluentAssertions.Core.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions.WindowsPhone">
-      <HintPath>..\packages\FluentAssertions.3.0.0-alpha5\lib\wp8\FluentAssertions.WindowsPhone.dll</HintPath>
+      <HintPath>..\packages\FluentAssertions.3.0.0-alpha5\lib\windowsphone8\FluentAssertions.WindowsPhone.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="..\TimeZones.Tests.Shared\TimeZones.Tests.Shared.projitems" Label="Shared" Condition="Exists('..\TimeZones.Tests.Shared\TimeZones.Tests.Shared.projitems')" />

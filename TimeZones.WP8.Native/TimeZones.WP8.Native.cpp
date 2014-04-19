@@ -1,4 +1,4 @@
-﻿// TimeZones.WPA81.Native.cpp
+﻿// TimeZones.WP8.Native.cpp
 #include "pch.h"
 #include "TimeZones.WP8.Native.h"
 

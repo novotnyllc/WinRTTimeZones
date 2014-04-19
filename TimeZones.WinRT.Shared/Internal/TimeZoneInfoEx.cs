@@ -383,21 +383,21 @@ namespace TimeZones.Internal
 
         private static class SafeNativeMethods
         {
-            [DllImport("kernel32.dll")]
+            [DllImport("api-ms-win-core-timezone-l1-1-0.dll")]
             internal static extern bool SystemTimeToTzSpecificLocalTime([In] ref TIME_ZONE_INFORMATION lpTimeZoneInformation,
                 [In] ref SYSTEMTIME lpUniversalTime,
                 out SYSTEMTIME lpLocalTime);
 
-            [DllImport("Advapi32.dll")]
+            [DllImport("api-ms-win-core-timezone-l1-1-0.dll")]
             internal static extern int EnumDynamicTimeZoneInformation([In] int dwIndex, out DYNAMIC_TIME_ZONE_INFORMATION lpTimeZoneInformation);
 
 
-            [DllImport("kernel32.dll")]
+            [DllImport("api-ms-win-core-timezone-l1-1-0.dll")]
             internal static extern bool GetTimeZoneInformationForYear([In] short wYear,
                 [In] ref DYNAMIC_TIME_ZONE_INFORMATION pdtzi,
                 out TIME_ZONE_INFORMATION ptzi);
 
-            [DllImport("kernel32.dll")]
+            [DllImport("api-ms-win-core-timezone-l1-1-0.dll")]
             internal static extern int GetDynamicTimeZoneInformation(out DYNAMIC_TIME_ZONE_INFORMATION pTimeZoneInformation);
         }
 

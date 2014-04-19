@@ -12,9 +12,9 @@
     <AssemblyName>TimeZones.Platform</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{76F1466A-8B6D-4E39-A767-685A06062A39};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
-    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile32</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -80,25 +80,20 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <ProjectReference Include="..\TimeZones.WPA81.Native\TimeZones.WPA81.Native.vcxproj">
-      <Project>{b2239354-6bb4-404a-b664-41ff0e915fa3}</Project>
-      <Name>TimeZones.WPA81.Native</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TimeZones\TimeZones.csproj">
       <Project>{76ba4996-a03a-481b-8871-caee1d268a42}</Project>
       <Name>TimeZones</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\TimeZones.WP8\Internal\TimeZoneInfoEx.cs">
-      <Link>TimeZoneInfoEx.cs</Link>
-    </Compile>
-    <Compile Include="..\TimeZones.WP8\TimeZoneServiceAdapter.cs">
-      <Link>TimeZoneServiceAdapter.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <ItemGroup>
+    <TargetPlatform Include="Windows, Version=8.1" />
+    <TargetPlatform Include="WindowsPhoneApp, Version=8.1" />
+  </ItemGroup>
+  <Import Project="..\TimeZones.WinRT.Shared\TimeZones.WinRT.Shared.projitems" Label="Shared" Condition="Exists('..\TimeZones.WinRT.Shared\TimeZones.WinRT.Shared.projitems')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

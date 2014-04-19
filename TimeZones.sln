@@ -48,10 +48,9 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TimeZones.WinRT.Shared", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeZones.WPA.Tests", "TimeZones.WPA.Tests\TimeZones.WPA.Tests.csproj", "{7628AF04-52C6-4D62-AD9B-AB0E10BD5050}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TimeZones.WPA81.Native", "TimeZones.WPA81.Native\TimeZones.WPA81.Native.vcxproj", "{B2239354-6BB4-404A-B664-41FF0E915FA3}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		TimeZones.WinRT.Shared\TimeZones.WinRT.Shared.projitems*{4c4465e1-d4b0-4168-943f-153bd913d532}*SharedItemsImports = 4
 		TimeZones.Tests.Shared\TimeZones.Tests.Shared.projitems*{7628af04-52c6-4d62-ad9b-ab0e10bd5050}*SharedItemsImports = 4
 		TimeZones.WinRT.Shared\TimeZones.WinRT.Shared.projitems*{cfc7bd31-aea2-4ce3-92de-dbc54c679e3d}*SharedItemsImports = 13
 		TimeZones.Tests.Shared\TimeZones.Tests.Shared.projitems*{210d6f5d-7f42-4059-8f61-9195468d738d}*SharedItemsImports = 4
@@ -346,24 +345,6 @@ Global
 		{7628AF04-52C6-4D62-AD9B-AB0E10BD5050}.Release|x86.ActiveCfg = Release|x86
 		{7628AF04-52C6-4D62-AD9B-AB0E10BD5050}.Release|x86.Build.0 = Release|x86
 		{7628AF04-52C6-4D62-AD9B-AB0E10BD5050}.Release|x86.Deploy.0 = Release|x86
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Debug|ARM.ActiveCfg = Debug|ARM
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Debug|ARM.Build.0 = Debug|ARM
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Debug|Win32.ActiveCfg = Debug|Win32
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Debug|Win32.Build.0 = Debug|Win32
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Debug|x86.ActiveCfg = Debug|Win32
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Debug|x86.Build.0 = Debug|Win32
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Release|Any CPU.ActiveCfg = Release|Win32
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Release|ARM.ActiveCfg = Release|ARM
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Release|ARM.Build.0 = Release|ARM
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Release|Win32.ActiveCfg = Release|Win32
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Release|Win32.Build.0 = Release|Win32
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Release|x86.ActiveCfg = Release|Win32
-		{B2239354-6BB4-404A-B664-41FF0E915FA3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<VisualStudioPropertySheet ProjectType="Visual C++" Version="8.00" Name="Team Build Overrides" OutputDirectory="C:\Users\Oren\Documents\Git\WinRTTimeZones\build\Mixed Platforms\Release\">
-	<Tool Name="VCCLCompilerTool" EnablePREfast="false" />
-	<Tool Name="VCFxCopTool" EnableFxCop="false" />
-</VisualStudioPropertySheet>

@@ -8,10 +8,10 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using PhoneAppWithTimeZones.Resources;
+using PhoneAppWithTimeZones.Wp81Sl.Resources;
 using TimeZones;
 
-namespace PhoneAppWithTimeZones
+namespace PhoneAppWithTimeZones.Wp81Sl
 {
     public partial class MainPage : PhoneApplicationPage
     {
@@ -23,16 +23,9 @@ namespace PhoneAppWithTimeZones
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
 
-            //var tz = TimeZoneInfo.Local;
-
-            //var tzs = TimeZoneService.SystemTimeZoneIds;
-
             var local = TimeZoneService.Local;
-
             var tz = TimeZoneService.FindSystemTimeZoneById("Pacific Standard Time");
-
             Debug.WriteLine(tz.StandardName);
-
         }
 
         // Sample code for building a localized ApplicationBar

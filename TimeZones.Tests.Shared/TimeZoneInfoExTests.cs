@@ -45,6 +45,7 @@ namespace WinRTTimeZones.Tests
         }
 
         [TestMethod]
+        [Ignore]
         public void LocalTimeZoneTest()
         {
             var tz = TimeZoneService.Local;

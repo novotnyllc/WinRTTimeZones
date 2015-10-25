@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata minClientVersion="2.5">
         <id>WinRTTimeZones</id>
-        <version>1.1.1</version>
+        <version>1.1.2</version>
         <title>Time Zone Conversion for Windows Runtime and PCL</title>
         <authors>Oren Novotny</authors>
         <owners>onovotny</owners>
@@ -57,7 +57,7 @@ Supported Platforms: WinRT, WinStore, WP8, WPA81, .NET4.5</description>
         <!-- ARM -->
         <file src="build\ARM\Release\TimeZones.WP8.Native\TimeZones.WP8.Native.pdb" target="build\wp8\native\ARM\TimeZones.WP8.Native.pdb" />
         <file src="build\ARM\Release\TimeZones.WP8.Native\TimeZones.WP8.Native.dll" target="build\wp8\native\ARM\TimeZones.WP8.Native.dll" />
-        <file src="build\ARM\Release\TimeZones.WP8.Native\TimeZones.WP8.Native.winmd" target="build\native\wp8\ARM\TimeZones.WP8.Native.winmd" />
+        <file src="build\ARM\Release\TimeZones.WP8.Native\TimeZones.WP8.Native.winmd" target="build\wp8\native\ARM\TimeZones.WP8.Native.winmd" />
         <file src="build\ARM\Release\TimeZones.WP8\TimeZones.Platform.pdb" target="build\wp8\native\ARM\TimeZones.Platform.pdb" />
         <file src="build\ARM\Release\TimeZones.WP8\TimeZones.Platform.dll" target="build\wp8\native\ARM\TimeZones.Platform.dll" />
 

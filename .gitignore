@@ -9,6 +9,7 @@ Release
 *.ncb
 *.log 
 *.DS_Store
+*.vsprops
 [Tt]humbs.db 
 _ReSharper.*
 *.resharper

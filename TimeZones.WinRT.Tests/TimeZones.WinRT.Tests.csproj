@@ -17,7 +17,7 @@
     <PackageCertificateKeyFile>TimeZones.WinRT.Tests_TemporaryKey.pfx</PackageCertificateKeyFile>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <PackageCertificateThumbprint>686CE33E7532DC1D383997B0C8C88A8BD3E3AE44</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>E0996757D281FEFE83A47062E2A7778AC231F78F</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
